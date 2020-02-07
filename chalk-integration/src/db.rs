@@ -151,4 +151,17 @@ impl RustIrDatabase<ChalkIr> for ChalkDatabase {
     fn is_object_safe(&self, trait_id: TraitId<ChalkIr>) -> bool {
         self.program_ir().unwrap().is_object_safe(trait_id)
     }
+
+    fn trait_name(&self, trait_id: TraitId<ChalkIr>) -> String {
+        self.program_ir().unwrap().trait_name(trait_id)
+    }
+
+    fn struct_name(&self, struct_id: StructId<ChalkIr>) -> String {
+        self.program_ir().unwrap().struct_name(struct_id)
+    }
+
+
+    fn identifier_name(&self, ident: &<ChalkIr as Interner>::Identifier) -> String {
+        self.program_ir().unwrap().identifier_name(ident)
+    }
 }
