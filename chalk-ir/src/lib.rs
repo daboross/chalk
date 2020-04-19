@@ -220,7 +220,6 @@ impl UniverseIndex {
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AdtId<I: Interner>(pub I::InternedAdtId);
 
-
 /// The id of a trait definition; could be used to load the trait datum by
 /// invoking the [`trait_datum`] method.
 ///
