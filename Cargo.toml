@@ -31,5 +31,6 @@ chalk-integration = { version = "0.10.1-dev", path = "chalk-integration" }
 [dev-dependencies]
 # used for program_writer test errors
 diff = "0.1"
+regex = "1"
 
 [workspace]
