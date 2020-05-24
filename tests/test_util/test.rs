@@ -6,7 +6,7 @@ use chalk_solve::ext::*;
 use chalk_solve::RustIrDatabase;
 use chalk_solve::{Solution, SolverChoice};
 
-use crate::test_util::assert_same;
+use crate::test_util::{assert_same, strip_leading_trailing_braces};
 
 pub fn assert_result(mut result: Option<Solution<ChalkIr>>, expected: &str) {
     // sort constraints, since the different solvers may output them in different order
@@ -209,11 +209,9 @@ macro_rules! parse_test_data {
 
 pub fn solve_goal(program_text: &str, goals: Vec<(&str, SolverChoice, TestGoal)>) {
     println!("program {}", program_text);
-    assert!(program_text.starts_with("{"));
-    assert!(program_text.ends_with("}"));
 
     let mut db = ChalkDatabase::with(
-        &program_text[1..program_text.len() - 1],
+        &strip_leading_trailing_braces(program_text),
         SolverChoice::default(),
     );
 

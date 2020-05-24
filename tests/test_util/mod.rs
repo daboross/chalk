@@ -2,6 +2,15 @@
 pub mod test;
 #[macro_use]
 pub mod logging_db;
+#[macro_use]
+pub mod display;
+
+pub fn strip_leading_trailing_braces(input: &str) -> &str {
+    assert!(input.starts_with("{"));
+    assert!(input.ends_with("}"));
+
+    &input[1..input.len() - 1]
+}
 
 macro_rules! lowering_success {
     (program $program:tt) => {
@@ -22,11 +31,9 @@ macro_rules! lowering_success {
 
 macro_rules! lowering_error {
     (program $program:tt error_msg { $expected:expr }) => {
-        let program_text = stringify!($program);
-        assert!(program_text.starts_with("{"));
-        assert!(program_text.ends_with("}"));
+        let program_text = crate::test_util::strip_leading_trailing_braces(stringify!($program));
         let error = chalk_integration::db::ChalkDatabase::with(
-            &program_text[1..program_text.len() - 1],
+            &program_text,
             chalk_solve::SolverChoice::default(),
         )
         .checked_program()
