@@ -1,5 +1,7 @@
 #[macro_use]
 pub mod test;
+#[macro_use]
+pub mod logging_db;
 
 macro_rules! lowering_success {
     (program $program:tt) => {
