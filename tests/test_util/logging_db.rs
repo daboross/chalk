@@ -1,14 +1,11 @@
-use std::sync::Arc;
-
 use chalk_integration::{
     db::ChalkDatabase, interner::ChalkIr, lowering::LowerGoal, program::Program,
     query::LoweringDatabase,
 };
 use chalk_solve::ext::*;
 use chalk_solve::RustIrDatabase;
-use chalk_solve::{logging_db::LoggingRustIrDatabase, Solution, SolverChoice};
+use chalk_solve::{logging_db::LoggingRustIrDatabase, SolverChoice};
 
-use crate::test_util::assert_same;
 use crate::test_util::test::{assert_result, TestGoal};
 
 macro_rules! logging_db_output_sufficient {
@@ -70,20 +67,23 @@ pub fn logging_db_output_sufficient(
 
     let db = ChalkDatabase::with(&output_text, SolverChoice::default());
 
-    let program = db.checked_program().unwrap();
+    let new_program = match db.checked_program() {
+        Ok(v) => v,
+        Err(e) => panic!("Error checking recreated chalk program: {}", e),
+    };
 
     for (goal_text, solver_choice, expected) in goals {
         let mut solver = solver_choice.into_solver::<ChalkIr>();
 
-        chalk_integration::tls::set_current_program(&program, || {
+        chalk_integration::tls::set_current_program(&new_program, || {
             println!("----------------------------------------------------------------------");
-            println!("---- second run on original logger output code -----------------------");
+            println!("---- second run on code output by logger -----------------------------");
             println!("goal {}", goal_text);
             assert!(goal_text.starts_with("{"));
             assert!(goal_text.ends_with("}"));
             let goal = chalk_parse::parse_goal(&goal_text[1..goal_text.len() - 1])
                 .unwrap()
-                .lower(&*program)
+                .lower(&*new_program)
                 .unwrap();
 
             println!("using solver: {:?}", solver_choice);
