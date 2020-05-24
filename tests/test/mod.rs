@@ -15,7 +15,7 @@ mod bench;
 mod coherence;
 mod wf_lowering;
 
-fn assert_result(mut result: Option<Solution<ChalkIr>>, expected: &str) {
+pub fn assert_result(mut result: Option<Solution<ChalkIr>>, expected: &str) {
     // sort constraints, since the different solvers may output them in different order
     match &mut result {
         Some(Solution::Unique(solution)) => {
@@ -35,7 +35,8 @@ fn assert_result(mut result: Option<Solution<ChalkIr>>, expected: &str) {
 }
 
 // different goals
-enum TestGoal {
+#[derive(Clone)]
+pub enum TestGoal {
     // solver should produce same aggregated single solution
     Aggregated(&'static str),
     // solver should produce exactly multiple solutions
@@ -45,14 +46,21 @@ enum TestGoal {
 }
 
 macro_rules! test {
+    (program $program:tt $($goals:tt)*) => {{
+        let (program, goals) = parse_test_data!(program $program $($goals)*);
+        solve_goal(program, goals)
+    }};
+}
+
+macro_rules! parse_test_data {
     (program $program:tt $($goals:tt)*) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[]
               @unparsed_goals[$($goals)*])
     };
 
     (@program[$program:tt] @parsed_goals[$($parsed_goals:tt)*] @unparsed_goals[]) => {
-        solve_goal(stringify!($program), vec![$($parsed_goals),*])
+        (stringify!($program), vec![$($parsed_goals),*])
     };
 
     // goal { G } yields { "Y" } -- test both solvers behave the same (the default)
@@ -60,7 +68,7 @@ macro_rules! test {
         goal $goal:tt yields { $expected:expr }
         $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), SolverChoice::slg_default(), TestGoal::Aggregated($expected))
@@ -76,7 +84,7 @@ macro_rules! test {
         goal $goal:tt yields_all { $($expected:expr),* }
         $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), SolverChoice::slg_default(), TestGoal::All(vec![$($expected),*]))
@@ -90,7 +98,7 @@ macro_rules! test {
         goal $goal:tt yields_first { $($expected:expr),* }
         $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), SolverChoice::default(), TestGoal::First(vec![$($expected),*]))
@@ -109,7 +117,7 @@ macro_rules! test {
         goal $goal:tt yields[$C:expr] { $expected:expr }
             goal $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::Aggregated($expected))
@@ -123,7 +131,7 @@ macro_rules! test {
             yields[$C:expr] { $expected:expr }
         yields $($unparsed_tail:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::Aggregated($expected))
@@ -135,7 +143,7 @@ macro_rules! test {
     (@program[$program:tt] @parsed_goals[$($parsed_goals:tt)*] @unparsed_goals[
         goal $goal:tt yields[$C:expr] { $expected:expr }
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::Aggregated($expected))
@@ -154,7 +162,7 @@ macro_rules! test {
         goal $goal:tt yields_all[$C:expr] { $($expected:expr),* }
             goal $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::All(vec![$($expected),*]))
@@ -166,7 +174,7 @@ macro_rules! test {
     (@program[$program:tt] @parsed_goals[$($parsed_goals:tt)*] @unparsed_goals[
         goal $goal:tt yields_all[$C:expr] { $($expected:expr),* }
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::All(vec![$($expected),*]))
@@ -185,7 +193,7 @@ macro_rules! test {
         goal $goal:tt yields_first[$C:expr] { $($expected:expr),* }
             goal $($unparsed_goals:tt)*
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::First(vec![$($expected),*]))
@@ -197,7 +205,7 @@ macro_rules! test {
     (@program[$program:tt] @parsed_goals[$($parsed_goals:tt)*] @unparsed_goals[
         goal $goal:tt yields_first[$C:expr] { $($expected:expr),* }
     ]) => {
-        test!(@program[$program]
+        parse_test_data!(@program[$program]
               @parsed_goals[
                   $($parsed_goals)*
                       (stringify!($goal), $C, TestGoal::First(vec![$($expected),*]))
