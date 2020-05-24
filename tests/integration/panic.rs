@@ -181,15 +181,19 @@ impl RustIrDatabase<ChalkIr> for MockDatabase {
     fn is_object_safe(&self, trait_id: TraitId<ChalkIr>) -> bool {
         unimplemented!()
     }
+
     fn trait_name(&self, trait_id: TraitId<ChalkIr>) -> String {
         unimplemented!()
     }
+
     fn adt_name(&self, struct_id: AdtId<ChalkIr>) -> String {
         unimplemented!()
     }
+
     fn assoc_type_name(&self, assoc_ty_id: AssocTypeId<ChalkIr>) -> String {
         unimplemented!()
     }
+
     fn opaque_type_name(&self, opaque_ty_id: OpaqueTyId<ChalkIr>) -> String {
         unimplemented!()
     }
