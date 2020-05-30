@@ -1,5 +1,5 @@
 use chalk_integration::{program::Program, query::LoweringDatabase, tls};
-use chalk_solve::display::{self, WriterState};
+use chalk_solve::display::write_items;
 use regex::Regex;
 use std::{fmt::Debug, sync::Arc};
 
@@ -23,21 +23,16 @@ macro_rules! reparse_test {
     };
 }
 
+/// Sends all items in a `chalk_integration::Program` through `display` code and
+/// returns the string representing the program.
 pub fn write_program(program: &Program) -> String {
     let mut out = String::new();
-    let ws = &WriterState::new(program);
-    for datum in program.adt_data.values() {
-        display::write_top_level(&mut out, ws, &**datum).unwrap();
-    }
-    for datum in program.trait_data.values() {
-        display::write_top_level(&mut out, ws, &**datum).unwrap();
-    }
-    for datum in program.impl_data.values() {
-        display::write_top_level(&mut out, ws, &**datum).unwrap();
-    }
-    for datum in program.opaque_ty_data.values() {
-        display::write_top_level(&mut out, ws, &**datum).unwrap();
-    }
+    let ids = std::iter::empty()
+        .chain(program.adt_data.keys().copied().map(Into::into))
+        .chain(program.trait_data.keys().copied().map(Into::into))
+        .chain(program.impl_data.keys().copied().map(Into::into))
+        .chain(program.opaque_ty_data.keys().copied().map(Into::into));
+    write_items(&mut out, program, ids).unwrap();
     out
 }
 
