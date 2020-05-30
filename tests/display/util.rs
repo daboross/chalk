@@ -15,18 +15,25 @@ pub fn strip_leading_trailing_braces(input: &str) -> &str {
     &input[1..input.len() - 1]
 }
 
+/// Performs a test on chalk's `display` code to render programs as `.chalk` files.
 macro_rules! reparse_test {
+    // Test that a program, when rendered and then reparsed, results in a
+    // program identical to the input.
     (program $program:tt) => {
         crate::display::util::reparse_test(crate::display::util::strip_leading_trailing_braces(
             stringify!($program),
         ))
     };
+    // Tests that a program, when rendered and then reparsed, results in a
+    // second, different program. Good for cases where this process is non-convergent.
     (program $program:tt produces $diff:tt) => {
         crate::display::util::reparse_into_different_test(
             crate::display::util::strip_leading_trailing_braces(stringify!($program)),
             crate::display::util::strip_leading_trailing_braces(stringify!($diff)),
         )
     };
+    // Tests that a program, when rendered, results in a string which matches the
+    // given regex.
     (program $program:tt formatting matches $res:literal) => {
         crate::display::util::test_formatting(
             crate::display::util::strip_leading_trailing_braces(stringify!($program)),
@@ -48,6 +55,56 @@ pub fn write_program(program: &Program) -> String {
     out
 }
 
+/// Diffs two `Program`s. This diffs the verbose debug output of `Program`, so
+/// that you can see exactly what parts have changed in case a test fails.
+///
+/// Will produces something akin to the following:
+///
+/// ```diff
+///  Program {
+/// -    adt_ids: {
+/// -        Atom('Foo' type=inline): AdtId(#0),
+/// -    },
+/// -    adt_kinds: {
+/// -        AdtId(#0): TypeKind {
+/// -            sort: Struct,
+/// -            name: Atom('Foo' type=inline),
+/// -            binders: for[] Unit,
+/// -        },
+/// -    },
+/// +    adt_ids: {},
+/// +    adt_kinds: {},
+///      fn_def_ids: {},
+///      fn_def_kinds: {},
+///      trait_ids: {},
+///      trait_kinds: {},
+/// -    adt_data: {
+/// -        AdtId(#0): AdtDatum {
+/// -            binders: for[] AdtDatumBound {
+/// -                fields: [],
+/// -                where_clauses: [],
+/// -            },
+/// -            id: AdtId(#0),
+/// -            flags: AdtFlags {
+/// -                upstream: false,
+/// -                fundamental: false,
+/// -            },
+/// -        },
+/// -    },
+/// +    adt_data: {},
+///      fn_def_data: {},
+///      impl_data: {},
+///      associated_ty_values: {},
+///      opaque_ty_ids: {},
+///      opaque_ty_kinds: {},
+///      opaque_ty_data: {},
+///      trait_data: {},
+///      well_known_traits: {},
+///      associated_ty_data: {},
+///      custom_clauses: [],
+///      object_safe_traits: {},
+///  }
+/// ```
 fn program_diff(original: &impl Debug, produced: &impl Debug) -> String {
     use std::fmt::Write;
 
@@ -89,9 +146,9 @@ pub struct ReparseTestResult<'a> {
 /// failing if the two lowered programs don't match.
 ///
 /// Note: the comparison here does include IDs, so input order matters. In
-/// particular, ProgramWriter always writes traits, then structs, then
-/// impls. So all traits must come first, then structs, then all impls, or
-/// the reparse will fail.
+/// particular, `write_program` always writes in the order adts, traits, impls,
+/// then opaque_types. So the input program must also list things in this order,
+/// or the test will fail.
 pub fn reparse_test(program_text: &str) -> ReparseTestResult<'_> {
     reparse_into_different_test(program_text, program_text)
 }
@@ -155,6 +212,10 @@ pub fn reparse_into_different_test<'a>(
     }
 }
 
+/// Tests that a string matches a given regex pattern, erroring out if it
+/// doesn't.
+///
+/// This is used for exact formatting tests, for testing things like indentation.
 pub fn test_formatting(src: &str, acceptable: &str) {
     let result = reparse_test(src);
     let acceptable = Regex::new(acceptable).unwrap();
