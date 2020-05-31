@@ -1,5 +1,6 @@
 mod assoc_ty;
 mod built_ins;
+mod const_;
 mod dyn_;
 mod formatting;
 mod impl_;
