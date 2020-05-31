@@ -2,6 +2,7 @@ mod assoc_ty;
 mod built_ins;
 mod const_;
 mod dyn_;
+mod fn_;
 mod formatting;
 mod impl_;
 mod lifetimes;
