@@ -10,7 +10,7 @@ use chalk_ir::*;
 use chalk_solve::clauses::program_clauses_for_goal;
 use chalk_solve::coinductive_goal::IsCoinductive;
 use chalk_solve::infer::ucanonicalize::UCanonicalized;
-use chalk_solve::infer::unify::UnificationResult;
+use chalk_solve::infer::unify::RelationResult;
 use chalk_solve::infer::InferenceTable;
 use chalk_solve::solve::truncate;
 use chalk_solve::RustIrDatabase;
@@ -195,6 +195,10 @@ impl<'me, I: Interner> context::ContextOps<I, SlgContext<I>> for SlgContextOps<'
         self.program.interner()
     }
 
+    fn unification_database(&self) -> &dyn UnificationDatabase<I> {
+        self.program.unification_database()
+    }
+
     fn into_goal(&self, domain_goal: DomainGoal<I>) -> Goal<I> {
         domain_goal.cast(self.program.interner())
     }
@@ -321,15 +325,35 @@ impl<I: Interner> context::UnificationOps<I, SlgContext<I>> for TruncatingInfere
         self.infer.invert(interner, value)
     }
 
-    fn unify_generic_args_into_ex_clause(
+    fn relate_generic_args_into_ex_clause(
         &mut self,
         interner: &I,
+        db: &dyn UnificationDatabase<I>,
         environment: &Environment<I>,
+        variance: Variance,
         a: &GenericArg<I>,
         b: &GenericArg<I>,
         ex_clause: &mut ExClause<I>,
     ) -> Fallible<()> {
-        let result = self.infer.unify(interner, environment, a, b)?;
+        let result = self
+            .infer
+            .relate(interner, db, environment, variance, a, b)?;
+        Ok(into_ex_clause(interner, result, ex_clause))
+    }
+
+    fn relate_tys_into_ex_clause(
+        &mut self,
+        interner: &I,
+        db: &dyn UnificationDatabase<I>,
+        environment: &Environment<I>,
+        variance: Variance,
+        a: &Ty<I>,
+        b: &Ty<I>,
+        ex_clause: &mut ExClause<I>,
+    ) -> Fallible<()> {
+        let result = self
+            .infer
+            .relate(interner, db, environment, variance, a, b)?;
         Ok(into_ex_clause(interner, result, ex_clause))
     }
 }
@@ -337,7 +361,7 @@ impl<I: Interner> context::UnificationOps<I, SlgContext<I>> for TruncatingInfere
 /// Helper function
 fn into_ex_clause<I: Interner>(
     interner: &I,
-    result: UnificationResult<I>,
+    result: RelationResult<I>,
     ex_clause: &mut ExClause<I>,
 ) {
     ex_clause.subgoals.extend(

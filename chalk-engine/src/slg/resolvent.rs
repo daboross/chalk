@@ -58,6 +58,7 @@ impl<I: Interner> context::ResolventOps<I, SlgContext<I>> for TruncatingInferenc
     #[instrument(level = "debug", skip(self, interner, environment, subst))]
     fn resolvent_clause(
         &mut self,
+        db: &dyn UnificationDatabase<I>,
         interner: &I,
         environment: &Environment<I>,
         goal: &DomainGoal<I>,
@@ -87,9 +88,14 @@ impl<I: Interner> context::ResolventOps<I, SlgContext<I>> for TruncatingInferenc
         debug!(?consequence, ?conditions, ?constraints);
 
         // Unify the selected literal Li with C'.
-        let unification_result = self
-            .infer
-            .unify(interner, environment, goal, &consequence)?;
+        let unification_result = self.infer.relate(
+            interner,
+            db,
+            environment,
+            Variance::Invariant,
+            goal,
+            &consequence,
+        )?;
 
         // Final X-clause that we will return.
         let mut ex_clause = ExClause {
@@ -204,6 +210,7 @@ impl<I: Interner> context::ResolventOps<I, SlgContext<I>> for TruncatingInferenc
     fn apply_answer_subst(
         &mut self,
         interner: &I,
+        unification_database: &dyn UnificationDatabase<I>,
         ex_clause: &mut ExClause<I>,
         selected_goal: &InEnvironment<Goal<I>>,
         answer_table_goal: &Canonical<InEnvironment<Goal<I>>>,
@@ -229,6 +236,7 @@ impl<I: Interner> context::ResolventOps<I, SlgContext<I>> for TruncatingInferenc
 
         AnswerSubstitutor::substitute(
             interner,
+            unification_database,
             &mut self.infer,
             &selected_goal.environment,
             &answer_subst,
@@ -266,11 +274,13 @@ struct AnswerSubstitutor<'t, I: Interner> {
 
     ex_clause: &'t mut ExClause<I>,
     interner: &'t I,
+    unification_database: &'t dyn UnificationDatabase<I>,
 }
 
 impl<I: Interner> AnswerSubstitutor<'_, I> {
     fn substitute<T: Zip<I>>(
         interner: &I,
+        unification_database: &dyn UnificationDatabase<I>,
         table: &mut InferenceTable<I>,
         environment: &Environment<I>,
         answer_subst: &Substitution<I>,
@@ -280,19 +290,22 @@ impl<I: Interner> AnswerSubstitutor<'_, I> {
     ) -> Fallible<()> {
         let mut this = AnswerSubstitutor {
             interner,
+            unification_database,
             table,
             environment,
             answer_subst,
             ex_clause,
             outer_binder: DebruijnIndex::INNERMOST,
         };
-        Zip::zip_with(&mut this, answer, pending)?;
+        Zip::zip_with(&mut this, Variance::Invariant, answer, pending)?;
         Ok(())
     }
 
     fn unify_free_answer_var(
         &mut self,
         interner: &I,
+        db: &dyn UnificationDatabase<I>,
+        variance: Variance,
         answer_var: BoundVar,
         pending: GenericArgData<I>,
     ) -> Fallible<bool> {
@@ -317,9 +330,11 @@ impl<I: Interner> AnswerSubstitutor<'_, I> {
 
         slg::into_ex_clause(
             interner,
-            self.table.unify(
+            self.table.relate(
                 interner,
+                db,
                 &self.environment,
+                variance,
                 answer_param,
                 &GenericArg::new(interner, pending_shifted),
             )?,
@@ -363,11 +378,11 @@ impl<I: Interner> AnswerSubstitutor<'_, I> {
 }
 
 impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
-    fn zip_tys(&mut self, answer: &Ty<I>, pending: &Ty<I>) -> Fallible<()> {
+    fn zip_tys(&mut self, variance: Variance, answer: &Ty<I>, pending: &Ty<I>) -> Fallible<()> {
         let interner = self.interner;
 
         if let Some(pending) = self.table.normalize_ty_shallow(interner, pending) {
-            return Zip::zip_with(self, answer, &pending);
+            return Zip::zip_with(self, variance, answer, &pending);
         }
 
         // If the answer has a variable here, then this is one of the
@@ -377,6 +392,8 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
         if let TyData::BoundVar(answer_depth) = answer.data(interner) {
             if self.unify_free_answer_var(
                 interner,
+                self.unification_database,
+                variance,
                 *answer_depth,
                 GenericArgData::Ty(pending.clone()),
             )? {
@@ -391,22 +408,28 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
                 self.assert_matching_vars(*answer_depth, *pending_depth)
             }
 
-            (TyData::Apply(answer), TyData::Apply(pending)) => Zip::zip_with(self, answer, pending),
+            (TyData::Apply(answer), TyData::Apply(pending)) => {
+                Zip::zip_with(self, variance, answer, pending)
+            }
 
-            (TyData::Dyn(answer), TyData::Dyn(pending)) => Zip::zip_with(self, answer, pending),
+            (TyData::Dyn(answer), TyData::Dyn(pending)) => {
+                Zip::zip_with(self, variance, answer, pending)
+            }
 
-            (TyData::Alias(answer), TyData::Alias(pending)) => Zip::zip_with(self, answer, pending),
+            (TyData::Alias(answer), TyData::Alias(pending)) => {
+                Zip::zip_with(self, variance, answer, pending)
+            }
 
             (TyData::Placeholder(answer), TyData::Placeholder(pending)) => {
-                Zip::zip_with(self, answer, pending)
+                Zip::zip_with(self, variance, answer, pending)
             }
 
-            (TyData::Function(answer), TyData::Function(pending)) => {
-                self.outer_binder.shift_in();
-                Zip::zip_with(self, &answer.substitution, &pending.substitution)?;
-                self.outer_binder.shift_out();
-                Ok(())
-            }
+            (TyData::Function(answer), TyData::Function(pending)) => Zip::zip_with(
+                self,
+                variance,
+                &answer.clone().into_binders(interner),
+                &pending.clone().into_binders(interner),
+            ),
 
             (TyData::InferenceVar(_, _), _) | (_, TyData::InferenceVar(_, _)) => panic!(
                 "unexpected inference var in answer `{:?}` or pending goal `{:?}`",
@@ -425,15 +448,22 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
         }
     }
 
-    fn zip_lifetimes(&mut self, answer: &Lifetime<I>, pending: &Lifetime<I>) -> Fallible<()> {
+    fn zip_lifetimes(
+        &mut self,
+        variance: Variance,
+        answer: &Lifetime<I>,
+        pending: &Lifetime<I>,
+    ) -> Fallible<()> {
         let interner = self.interner;
         if let Some(pending) = self.table.normalize_lifetime_shallow(interner, pending) {
-            return Zip::zip_with(self, answer, &pending);
+            return Zip::zip_with(self, variance, answer, &pending);
         }
 
         if let LifetimeData::BoundVar(answer_depth) = answer.data(interner) {
             if self.unify_free_answer_var(
                 interner,
+                self.unification_database,
+                variance,
                 *answer_depth,
                 GenericArgData::Lifetime(pending.clone()),
             )? {
@@ -465,10 +495,15 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
         }
     }
 
-    fn zip_consts(&mut self, answer: &Const<I>, pending: &Const<I>) -> Fallible<()> {
+    fn zip_consts(
+        &mut self,
+        variance: Variance,
+        answer: &Const<I>,
+        pending: &Const<I>,
+    ) -> Fallible<()> {
         let interner = self.interner;
         if let Some(pending) = self.table.normalize_const_shallow(interner, pending) {
-            return Zip::zip_with(self, answer, &pending);
+            return Zip::zip_with(self, variance, answer, &pending);
         }
 
         let ConstData {
@@ -480,11 +515,13 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
             value: pending_value,
         } = pending.data(interner);
 
-        self.zip_tys(answer_ty, pending_ty)?;
+        self.zip_tys(variance, answer_ty, pending_ty)?;
 
         if let ConstValue::BoundVar(answer_depth) = answer_value {
             if self.unify_free_answer_var(
                 interner,
+                self.unification_database,
+                variance,
                 *answer_depth,
                 GenericArgData::Const(pending.clone()),
             )? {
@@ -521,17 +558,31 @@ impl<'i, I: Interner> Zipper<'i, I> for AnswerSubstitutor<'i, I> {
         }
     }
 
-    fn zip_binders<T>(&mut self, answer: &Binders<T>, pending: &Binders<T>) -> Fallible<()>
+    fn zip_binders<T>(
+        &mut self,
+        variance: Variance,
+        answer: &Binders<T>,
+        pending: &Binders<T>,
+    ) -> Fallible<()>
     where
         T: HasInterner<Interner = I> + Zip<I> + Fold<I, Result = T>,
     {
         self.outer_binder.shift_in();
-        Zip::zip_with(self, answer.skip_binders(), pending.skip_binders())?;
+        Zip::zip_with(
+            self,
+            variance,
+            answer.skip_binders(),
+            pending.skip_binders(),
+        )?;
         self.outer_binder.shift_out();
         Ok(())
     }
 
     fn interner(&self) -> &'i I {
         self.interner
+    }
+
+    fn unification_database(&self) -> &dyn UnificationDatabase<I> {
+        self.unification_database
     }
 }

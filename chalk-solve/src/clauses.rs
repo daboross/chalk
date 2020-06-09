@@ -191,7 +191,7 @@ pub fn program_clauses_for_goal<'db, I: Interner>(
                 .iter(interner)
                 .cloned(),
         )
-        .filter(|c| c.could_match(interner, goal))
+        .filter(|c| c.could_match(interner, db.unification_database(), goal))
         .collect();
 
     debug!(?clauses);
@@ -592,6 +592,7 @@ fn match_ty<I: Interner>(
             builder.push_fact(WellFormed::Ty(ty.clone()));
             quantified_ty
                 .substitution
+                .0
                 .iter(interner)
                 .map(|p| p.assert_ty_ref(interner))
                 .map(|ty| match_ty(builder, environment, &ty))
