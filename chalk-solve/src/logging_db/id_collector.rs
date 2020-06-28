@@ -159,3 +159,139 @@ where
         where_clause.super_visit_with(self.as_dyn(), outer_binder)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    use chalk_integration::{
+        interner::{ChalkIr, Identifier},
+        query::LoweringDatabase,
+    };
+
+    fn id_str_to_recorded_id(
+        program: &chalk_integration::program::Program,
+        id_str: &str,
+    ) -> RecordedItemId<ChalkIr> {
+        let id_identifier = Identifier::from(id_str);
+        None.or_else(|| {
+            program
+                .adt_ids
+                .get(&id_identifier)
+                .copied()
+                .map(RecordedItemId::from)
+        })
+        .or_else(|| {
+            program
+                .fn_def_ids
+                .get(&id_identifier)
+                .copied()
+                .map(RecordedItemId::from)
+        })
+        // .or_else(|| program.closure_ids.get(&id_identifier).copied().map(RecordedItemId::from))
+        .or_else(|| {
+            program
+                .trait_ids
+                .get(&id_identifier)
+                .copied()
+                .map(RecordedItemId::from)
+        })
+        .or_else(|| {
+            program
+                .opaque_ty_ids
+                .get(&id_identifier)
+                .copied()
+                .map(RecordedItemId::from)
+        })
+        .or_else(|| {
+            program
+                .adt_ids
+                .get(&id_identifier)
+                .copied()
+                .map(RecordedItemId::from)
+        })
+        .unwrap_or_else(|| panic!("unknown identifier {}", id_str))
+    }
+
+    fn collector_test(program_text: &str, ids: &[&str], expected: &[&str]) {
+        assert!(program_text.starts_with("{") && program_text.ends_with("}"));
+        let program_text = &program_text[1..program_text.len() - 1];
+        let db = chalk_integration::db::ChalkDatabase::with(program_text, <_>::default());
+        let program = db
+            .program_ir()
+            .unwrap_or_else(|e| panic!("couldn't lower program {}: {}", program_text, e));
+        // inefficient but otherwise correct mapping from names into IDs
+        let ids = ids
+            .iter()
+            .map(|id| id_str_to_recorded_id(&*program, id))
+            .collect::<BTreeSet<_>>();
+        let expected_ids = expected
+            .iter()
+            .map(|id| id_str_to_recorded_id(&*program, id))
+            .collect::<BTreeSet<_>>();
+
+        // let out = collect_unrecorded_ids::<chalk_integration::interner::ChalkIr, _>(&*program, &ids);
+        // assert_eq!(out, expected_ids);
+    }
+
+    fn takes_rustirdb<I: crate::Interner, T: crate::RustIrDatabase<I>>() {}
+
+    fn uses_above() {
+        takes_rustirdb::<chalk_integration::interner::ChalkIr, chalk_integration::program::Program>(
+        );
+    }
+
+    macro_rules! collector_test {
+        (program $program:tt given [$($given_id:literal),*] produces_exactly [$($expected_id:literal),*]) => {
+            collector_test(stringify!($program), &[$($given_id),*], &[$($expected_id),*])
+        };
+    }
+
+    #[test]
+    fn collects_trait_bound_ids() {
+        collector_test! {
+            program {
+                trait B {}
+                trait C {}
+                trait A: B + C {}
+            }
+            given ["A"]
+            produces_exactly ["B", "C"]
+        }
+    }
+
+    #[test]
+    fn collects_opaque_type_bound_ids() {
+        collector_test! {
+            program {
+                trait B {}
+                struct C {}
+                opaque type A: B = C;
+            }
+            given ["A"]
+            produces_exactly ["B", "C"]
+        }
+    }
+
+    #[test]
+    fn collects_trait_where_clause_ids() {
+        collector_test! {
+            program {
+                struct C
+                trait B where Self: C {}
+                trait A<T> where T: B {}
+            }
+            given ["A"]
+            produces_exactly ["B"]
+        }
+    }
+
+    #[test]
+    fn collects_assoc_type_bound_ids() {}
+
+    #[test]
+    fn collects_assoc_type_value_ids() {}
+
+    #[test]
+    fn collects_traits_in_dyn() {}
+}
