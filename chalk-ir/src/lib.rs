@@ -1769,8 +1769,8 @@ impl<I: Interner> HasInterner for AliasEq<I> {
 /// (IOW, we use deBruijn indices, where binders are introduced in reverse order
 /// of `self.binders`.)
 #[derive(Clone, PartialEq, Eq, Hash)]
+/// The binders that quantify over the value.
 pub struct Binders<T: HasInterner> {
-    /// The binders that quantify over the value.
     pub binders: VariableKinds<T::Interner>,
 
     /// The value being quantified over.

@@ -16,6 +16,8 @@ pub(super) struct SearchGraph<I: Interner> {
     nodes: Vec<Node<I>>,
 }
 
+/// An index for when we encountered each goal during what is essentially a
+/// Depth First Search.
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
 pub(super) struct DepthFirstNumber {
     index: usize,

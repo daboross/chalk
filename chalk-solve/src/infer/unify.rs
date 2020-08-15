@@ -34,6 +34,7 @@ impl<I: Interner> InferenceTable<I> {
     }
 }
 
+//TODO document
 struct Unifier<'t, I: Interner> {
     table: &'t mut InferenceTable<I>,
     environment: &'t Environment<I>,

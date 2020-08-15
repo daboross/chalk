@@ -62,7 +62,8 @@ pub(super) trait SolveIteration<I: Interner>: SolveDatabase<I> {
                         },
                     },
                 };
-
+                // WellFormed(FooImplBar) :- Impl(Foo,Bar)
+                // WellFormed(FooImplBar)
                 // "Domain" goals (i.e., leaf goals that are Rust-specific) are
                 // always solved via some form of implication. We can either
                 // apply assumptions from our environment (i.e. where clauses),

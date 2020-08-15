@@ -251,8 +251,8 @@ impl<'me, I: Interner> SolveDatabase<I> for Solver<'me, I> {
             let coinductive_goal = goal.is_coinductive(self.program);
             let depth = self.context.stack.push(coinductive_goal);
             let dfn = self.context.search_graph.insert(&goal, depth);
+            // VVVVV
             let subgoal_minimums = self.solve_new_subgoal(goal, depth, dfn);
-            self.context.search_graph[dfn].links = subgoal_minimums;
             self.context.search_graph[dfn].stack_depth = None;
             self.context.stack.pop(depth);
             minimums.update_from(subgoal_minimums);
