@@ -98,6 +98,7 @@ where
     I: Interner,
 {
     fn fn_def_variance(&self, fn_def_id: chalk_ir::FnDefId<I>) -> Variances<I> {
+        self.record(fn_def_id);
         self.ws
             .db()
             .unification_database()
@@ -105,6 +106,7 @@ where
     }
 
     fn adt_variance(&self, adt_id: chalk_ir::AdtId<I>) -> Variances<I> {
+        self.record(adt_id);
         self.ws.db().unification_database().adt_variance(adt_id)
     }
 }
