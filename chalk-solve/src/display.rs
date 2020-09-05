@@ -14,6 +14,7 @@ use crate::{logging_db::RecordedItemId, split::Split, RustIrDatabase};
 mod utils;
 
 mod bounds;
+mod goals;
 mod identifiers;
 mod items;
 mod render_trait;
@@ -95,6 +96,16 @@ where
         }
     }
     Ok(())
+}
+
+pub fn write_goal<F, I, DB, P>(f: &mut F, ws: &WriterState<I, DB, P>, goal: &Goal<I>) -> Result
+where
+    F: std::fmt::Write + ?Sized,
+    I: Interner,
+    DB: RustIrDatabase<I>,
+    P: Borrow<DB>,
+{
+    writeln!(f, "{}", goal.display(&InternalWriterState::new(ws)))
 }
 
 /// Displays a set of bounds, all targeting `Self`, as just the trait names,
