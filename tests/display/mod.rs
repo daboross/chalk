@@ -8,6 +8,7 @@ mod dyn_;
 mod enum_;
 mod fn_;
 mod formatting;
+mod goals;
 mod impl_;
 mod lifetimes;
 mod opaque_ty;

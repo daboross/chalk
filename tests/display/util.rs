@@ -3,9 +3,13 @@
 //! This can't live as a submodule of `test_util.rs`, as then it would conflict
 //! with `display/mod.rs` for the name `mod display` when `test_util.rs` is
 //! compiled as a standalone test (rather than from `lib.rs`).
-use chalk_integration::{interner::ChalkIr, program::Program, query::LoweringDatabase, tls};
+use chalk_integration::{
+    db::ChalkDatabase, interner::ChalkIr, lowering::LowerGoal, program::Program,
+    query::LoweringDatabase, tls,
+};
+use chalk_ir::Goal;
 use chalk_solve::{
-    display::{write_items, WriterState},
+    display::{write_goal as write_goal_internal, write_items, WriterState},
     logging_db::RecordedItemId,
 };
 use regex::Regex;
@@ -16,6 +20,81 @@ pub fn strip_leading_trailing_braces(input: &str) -> &str {
     assert!(input.ends_with("}"));
 
     &input[1..input.len() - 1]
+}
+
+/// Performs a test on chalk's goal `display` code to render goals
+macro_rules! reparse_goal_test {
+    // Test that a goal, when run, captured, rendered and the reparsed, results in another
+    // goal identical to the input.
+    ($(program $program:tt)? goal $goal:tt) => {
+        crate::display::util::reparse_goal_test(
+            crate::display::util::strip_leading_trailing_braces(stringify!($goal)),
+            {
+                let program_input = stringify!($($program)*);
+                if program_input.is_empty() {
+                    program_input
+                } else {
+                    crate::display::util::strip_leading_trailing_braces(program_input)
+                }
+            },
+        )
+    };
+    ($(program $program:tt)? goal $goal:tt produces $diff:tt) => {
+        crate::display::util::reparse_goal_into_different_test(
+            crate::display::util::strip_leading_trailing_braces(stringify!($goal)),
+            crate::display::util::strip_leading_trailing_braces(stringify!($diff)),
+            {
+                let program_input = stringify!($($program)*);
+                if program_input.is_empty() {
+                    program_input
+                } else {
+                    crate::display::util::strip_leading_trailing_braces(program_input)
+                }
+            },
+        )
+    };
+}
+
+pub fn reparse_goal_test(goal_text: &str, program_text: &str) {
+    reparse_goal_into_different_test(goal_text, goal_text, program_text)
+}
+
+pub fn reparse_goal_into_different_test<'a>(
+    goal_text: &'a str,
+    target_text: &'a str,
+    program_text: &'a str,
+) {
+    let db = ChalkDatabase::with(&program_text, <_>::default());
+    let program = db.program_ir().unwrap();
+    let goal = chalk_parse::parse_goal(&goal_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
+
+    let target_goal = chalk_parse::parse_goal(&target_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
+
+    let output_goal_text = tls::set_current_program(&program, || write_goal(&goal, &program));
+    let output_goal = chalk_parse::parse_goal(&output_goal_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
+    if output_goal != target_goal {
+        panic!(
+            "write_goal produced different program.\n\
+            source: {}\n\
+            new source: {}\n",
+            goal_text, &output_goal_text
+        )
+    };
+}
+
+pub fn write_goal(goal: &Goal<ChalkIr>, program: &Program) -> String {
+    let mut out = String::new();
+    write_goal_internal::<_, _, Program, _>(&mut out, &WriterState::new(program), goal).unwrap();
+    out
 }
 
 /// Performs a test on chalk's `display` code to render programs as `.chalk` files.
