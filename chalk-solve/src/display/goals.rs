@@ -59,6 +59,12 @@ impl<I: Interner> RenderAsRust<I> for Goal<I> {
                 eq_goal.a.data(interner).display(s),
                 eq_goal.b.data(interner).display(s)
             ),
+            GoalData::SubtypeGoal(subtype_goal) => write!(
+                f,
+                "Subtype({},{})",
+                subtype_goal.a.display(s),
+                subtype_goal.b.display(s)
+            ),
             GoalData::DomainGoal(domain_goal) => write!(f, "{}", domain_goal.display(s)),
             // make unreachable?
             GoalData::CannotProve => write!(f, "{{cannot prove}}"),
