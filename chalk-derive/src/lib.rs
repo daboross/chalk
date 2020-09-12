@@ -1,5 +1,3 @@
-extern crate proc_macro;
-
 use proc_macro2::{Span, TokenStream};
 use quote::quote;
 use quote::ToTokens;
@@ -69,7 +67,7 @@ fn get_generic_param_name(input: &DeriveInput) -> Option<&Ident> {
     }
 }
 
-fn find_interner(s: &mut synstructure::Structure) -> (TokenStream, DeriveKind) {
+fn find_interner(s: &mut synstructure::Structure<'_>) -> (TokenStream, DeriveKind) {
     let input = s.ast();
 
     if let Some(arg) = has_interner_attr(input) {
@@ -123,7 +121,7 @@ decl_derive!([SuperVisit, attributes(has_interner)] => derive_super_visit);
 decl_derive!([Fold, attributes(has_interner)] => derive_fold);
 decl_derive!([Zip, attributes(has_interner)] => derive_zip);
 
-fn derive_has_interner(mut s: synstructure::Structure) -> TokenStream {
+fn derive_has_interner(mut s: synstructure::Structure<'_>) -> TokenStream {
     let (interner, _) = find_interner(&mut s);
 
     s.add_bounds(synstructure::AddBounds::None);
@@ -139,12 +137,12 @@ fn derive_has_interner(mut s: synstructure::Structure) -> TokenStream {
 /// - It has a `#[has_interner(TheInterner)]` attribute
 /// - There is a single parameter `T: HasInterner` (does not have to be named `T`)
 /// - There is a single parameter `I: Interner` (does not have to be named `I`)
-fn derive_visit(s: synstructure::Structure) -> TokenStream {
+fn derive_visit(s: synstructure::Structure<'_>) -> TokenStream {
     derive_any_visit(s, parse_quote! { Visit }, parse_quote! { visit_with })
 }
 
 /// Same as Visit, but derives SuperVisit instead
-fn derive_super_visit(s: synstructure::Structure) -> TokenStream {
+fn derive_super_visit(s: synstructure::Structure<'_>) -> TokenStream {
     derive_any_visit(
         s,
         parse_quote! { SuperVisit },
@@ -153,7 +151,7 @@ fn derive_super_visit(s: synstructure::Structure) -> TokenStream {
 }
 
 fn derive_any_visit(
-    mut s: synstructure::Structure,
+    mut s: synstructure::Structure<'_>,
     trait_name: Ident,
     method_name: Ident,
 ) -> TokenStream {
@@ -197,8 +195,8 @@ fn derive_any_visit(
 }
 
 fn each_variant_pair<F, R>(
-    a: &mut synstructure::Structure,
-    b: &mut synstructure::Structure,
+    a: &mut synstructure::Structure<'_>,
+    b: &mut synstructure::Structure<'_>,
     mut f: F,
 ) -> TokenStream
 where
@@ -219,7 +217,7 @@ where
     t
 }
 
-fn derive_zip(mut s: synstructure::Structure) -> TokenStream {
+fn derive_zip(mut s: synstructure::Structure<'_>) -> TokenStream {
     let (interner, _) = find_interner(&mut s);
 
     let mut a = s.clone();
@@ -261,7 +259,7 @@ fn derive_zip(mut s: synstructure::Structure) -> TokenStream {
 /// - It has a `#[has_interner(TheInterner)]` attribute
 /// - There is a single parameter `T: HasInterner` (does not have to be named `T`)
 /// - There is a single parameter `I: Interner` (does not have to be named `I`)
-fn derive_fold(mut s: synstructure::Structure) -> TokenStream {
+fn derive_fold(mut s: synstructure::Structure<'_>) -> TokenStream {
     let input = s.ast();
 
     let (interner, kind) = find_interner(&mut s);

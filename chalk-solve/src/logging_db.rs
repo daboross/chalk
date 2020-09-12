@@ -53,6 +53,14 @@ where
             _phantom: PhantomData,
         }
     }
+
+    pub fn from_writer_state(ws: WriterState<I, DB, P>) -> Self {
+        LoggingRustIrDatabase {
+            ws,
+            def_ids: Default::default(),
+            _phantom: PhantomData,
+        }
+    }
 }
 
 impl<I, DB, P> Display for LoggingRustIrDatabase<I, DB, P>
