@@ -332,9 +332,18 @@ impl<'t, I: Interner> Unifier<'t, I> {
         universe_index: UniverseIndex,
     ) -> Substitution<I> {
         let interner = self.interner;
-        let vars = substitution.iter(interner).map(|_| {
+        let vars = substitution.iter(interner).map(|sub_var| {
             let ena_var = self.table.new_variable(universe_index);
-            GenericArgData::Ty(ena_var.to_ty(interner)).intern(interner)
+            match sub_var.data(interner) {
+                GenericArgData::Ty(_) => GenericArgData::Ty(ena_var.to_ty(interner)),
+                GenericArgData::Lifetime(_) => {
+                    GenericArgData::Lifetime(ena_var.to_lifetime(interner))
+                }
+                GenericArgData::Const(const_value) => GenericArgData::Const(
+                    ena_var.to_const(interner, const_value.data(interner).ty.clone()),
+                ),
+            }
+            .intern(interner)
         });
         Substitution::from_iter(interner, vars)
     }
