@@ -342,6 +342,7 @@ mod refs;
 mod scalars;
 mod slices;
 mod string;
+mod subtype;
 mod tuples;
 mod unify;
 mod unsize;
