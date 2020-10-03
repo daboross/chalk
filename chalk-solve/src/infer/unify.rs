@@ -172,6 +172,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
             }
 
             (&TyData::Apply(ref apply1), &TyData::Apply(ref apply2)) => {
+                debug!("ty_ty apply/apply hit - {:?} unifying with {:?}", apply1, apply2);
                 Zip::zip_with(self, variance, apply1, apply2)
             }
 
@@ -212,6 +213,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
     /// Unify two inference variables
     #[instrument(level = "debug", skip(self))]
     fn unify_var_var(&mut self, a: InferenceVar, b: InferenceVar) -> Fallible<()> {
+        debug_span!("unify_var_var", ?a, ?b);
         let var1 = EnaVariable::from(a);
         let var2 = EnaVariable::from(b);
         Ok(self
@@ -232,6 +234,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         general_var: InferenceVar,
         specific_ty: Ty<I>,
     ) -> Fallible<()> {
+        debug_span!("unify_general_var_specific_ty", ?general_var, ?specific_ty);
         self.table
             .unify
             .unify_var_value(
@@ -255,6 +258,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         R: Zip<I> + Fold<I, Result = R>,
         't: 'a,
     {
+        debug_span!("relate_binders", ?variance, ?a, ?b);
         // for<'a...> T == for<'b...> U
         //
         // if:
@@ -295,6 +299,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         alias: &AliasTy<I>,
         ty: &Ty<I>,
     ) -> Fallible<()> {
+        debug_span!("relate_alias_ty", ?variance, ?alias, ?ty);
         let interner = self.interner;
         match variance {
             Variance::Invariant => {
@@ -328,24 +333,54 @@ impl<'t, I: Interner> Unifier<'t, I> {
 
     fn generalize_substitution(
         &mut self,
+        variance: Variance,
         substitution: &Substitution<I>,
         universe_index: UniverseIndex,
-    ) -> Substitution<I> {
+    ) -> Fallible<Substitution<I>> {
+        debug_span!("generalize_substitution", ?substitution, ?universe_index);
         let interner = self.interner;
-        let vars = substitution.iter(interner).map(|sub_var| {
-            let ena_var = self.table.new_variable(universe_index);
-            match sub_var.data(interner) {
-                GenericArgData::Ty(_) => GenericArgData::Ty(ena_var.to_ty(interner)),
-                GenericArgData::Lifetime(_) => {
-                    GenericArgData::Lifetime(ena_var.to_lifetime(interner))
-                }
-                GenericArgData::Const(const_value) => GenericArgData::Const(
-                    ena_var.to_const(interner, const_value.data(interner).ty.clone()),
-                ),
-            }
-            .intern(interner)
-        });
-        Substitution::from_iter(interner, vars)
+        let vars = substitution
+            .iter(interner)
+            .map(|sub_var| {
+                let ena_var = self.table.new_variable(universe_index);
+                let var = (match sub_var.data(interner) {
+                    GenericArgData::Ty(old_ty) => {
+                        let new_var = ena_var.to_ty(interner);
+                        self.relate_ty_ty(variance, old_ty, &new_var).map_err(|e| {
+                            debug!("relate_ty_ty failed (no solution)");
+                            e
+                        })?;
+
+                        GenericArgData::Ty(new_var)
+                    }
+                    GenericArgData::Lifetime(old_lifetime) => {
+                        let new_var = ena_var.to_lifetime(interner);
+                        self.relate_lifetime_lifetime(variance, old_lifetime, &new_var)
+                            .map_err(|e| {
+                                debug!("relate_ty_ty failed (no solution)");
+                                e
+                            })?;
+                        GenericArgData::Lifetime(new_var)
+                    }
+                    GenericArgData::Const(const_value) => {
+                        let new_var =
+                            ena_var.to_const(interner, const_value.data(interner).ty.clone());
+                        self.relate_const_const(variance, const_value, &new_var)
+                            .map_err(|e| {
+                                debug!("relate_ty_ty failed (no solution)");
+                                e
+                            })?;
+
+                        GenericArgData::Const(new_var)
+                    }
+                })
+                .intern(interner);
+
+                Ok(var)
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+
+        Ok(Substitution::from_iter(interner, vars))
     }
 
     /// Unify an inference variable `var` with some non-inference
@@ -365,12 +400,21 @@ impl<'t, I: Interner> Unifier<'t, I> {
         // `forall` binders that had been introduced at the point
         // this variable was created -- though it may change over time
         // as the variable is unified.
-        let universe_index = self.table.universe_of_unbound_var(var);
+        // let universe_index = self.table.universe_of_unbound_var(var);
+        let universe_index = self.table.max_universe();
 
-        let ty1 = ty.fold_with(
-            &mut OccursCheck::new(self, var, universe_index),
-            DebruijnIndex::INNERMOST,
-        )?;
+        debug!("relate_var_ty: universe index of var: {:?}", universe_index);
+
+        debug!("trying fold_with on {:?}", ty);
+        let ty1 = ty
+            .fold_with(
+                &mut OccursCheck::new(self, var, universe_index),
+                DebruijnIndex::INNERMOST,
+            )
+            .map_err(|e| {
+                debug!("failed to fold {:?}", ty);
+                e
+            })?;
 
         // "Generalize" types. This ensures that we aren't accidentally forcing
         // too much onto `var`. Instead of directly setting `var` equal to `ty`,
@@ -384,6 +428,8 @@ impl<'t, I: Interner> Unifier<'t, I> {
         // alternatively, link to a test case which requires this & say "it's
         // complicated why exactly we need this".
 
+        let universe_index = self.table.max_universe;
+
         // Example operation: consider `ty` as `&'x SomeType`. To generalize
         // this, we create two new vars `'0` and `1`. Then we relate `var` with
         // `&'0 1` and `&'0 1` with `&'x SomeType`. The second relation will
@@ -391,7 +437,8 @@ impl<'t, I: Interner> Unifier<'t, I> {
         let generalized_val = match ty1.data(interner) {
             TyData::Apply(aty_data) => {
                 let ApplicationTy { substitution, name } = aty_data;
-                let substitution = self.generalize_substitution(substitution, universe_index);
+                let substitution =
+                    self.generalize_substitution(variance, substitution, universe_index)?;
                 let name = name.clone();
                 TyData::Apply(ApplicationTy { substitution, name }).intern(interner)
             }
@@ -403,19 +450,33 @@ impl<'t, I: Interner> Unifier<'t, I> {
                 let lifetime_var = self.table.new_variable(universe_index);
                 let lifetime = lifetime_var.to_lifetime(interner);
 
+                let mut error = None;
+
                 let bounds = bounds.map_ref(|value| {
-                    let universe_index = universe_index.next();
+                    // let universe_index = universe_index.next();
                     let iter = value.iter(interner).map(|sub_var| {
                         sub_var.map_ref(|clause| {
-                            let universe_index = universe_index.next();
+                            // let universe_index = universe_index.next();
+                            // let universe_index = self.table.new_universe();
                             match clause {
                                 WhereClause::Implemented(trait_ref) => {
                                     let TraitRef {
                                         ref substitution,
                                         trait_id,
                                     } = *trait_ref;
-                                    let substitution =
-                                        self.generalize_substitution(substitution, universe_index);
+                                    let old_sub = substitution;
+                                    let substitution = self.generalize_substitution(
+                                        variance,
+                                        substitution,
+                                        universe_index,
+                                    );
+                                    let substitution = match substitution {
+                                        Ok(v) => v,
+                                        Err(e) => {
+                                            error = Some(e);
+                                            return clause.clone();
+                                        }
+                                    };
                                     WhereClause::Implemented(TraitRef {
                                         substitution,
                                         trait_id,
@@ -430,9 +491,17 @@ impl<'t, I: Interner> Unifier<'t, I> {
                                                 opaque_ty_id,
                                             } = *opaque_ty;
                                             let substitution = self.generalize_substitution(
+                                                variance,
                                                 substitution,
                                                 universe_index,
                                             );
+                                            let substitution = match substitution {
+                                                Ok(v) => v,
+                                                Err(e) => {
+                                                    error = Some(e);
+                                                    return clause.clone();
+                                                }
+                                            };
                                             AliasTy::Opaque(OpaqueTy {
                                                 substitution,
                                                 opaque_ty_id,
@@ -444,9 +513,17 @@ impl<'t, I: Interner> Unifier<'t, I> {
                                                 associated_ty_id,
                                             } = *projection_ty;
                                             let substitution = self.generalize_substitution(
+                                                variance,
                                                 substitution,
                                                 universe_index,
                                             );
+                                            let substitution = match substitution {
+                                                Ok(v) => v,
+                                                Err(e) => {
+                                                    error = Some(e);
+                                                    return clause.clone();
+                                                }
+                                            };
                                             AliasTy::Projection(ProjectionTy {
                                                 substitution,
                                                 associated_ty_id,
@@ -475,6 +552,11 @@ impl<'t, I: Interner> Unifier<'t, I> {
                     });
                     QuantifiedWhereClauses::from_iter(interner, iter)
                 });
+
+                if let Some(error) = error {
+                    return Err(error);
+                }
+
                 TyData::Dyn(DynTy { bounds, lifetime }).intern(interner)
             }
             TyData::Function(fn_ptr) => {
@@ -486,8 +568,11 @@ impl<'t, I: Interner> Unifier<'t, I> {
                     ref substitution,
                 } = *fn_ptr;
 
-                let substitution =
-                    FnSubst(self.generalize_substitution(&substitution.0, universe_index));
+                let substitution = FnSubst(self.generalize_substitution(
+                    variance,
+                    &substitution.0,
+                    universe_index,
+                )?);
 
                 TyData::Function(FnPointer {
                     num_binders,
@@ -499,6 +584,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
                 .intern(interner)
             }
             TyData::Placeholder(_) | TyData::BoundVar(_) => {
+                debug!("just generalizing to the ty itself: {:?}", ty1);
                 // BoundVar and PlaceHolder have no internal values to be
                 // generic over, so we just relate directly to it
                 ty1.clone()
@@ -507,6 +593,8 @@ impl<'t, I: Interner> Unifier<'t, I> {
                 unreachable!("relate_var_ty is not be called with ty = Alias or InferenceVar");
             }
         };
+
+        debug!("var {:?} generalized to {:?}", var, generalized_val);
 
         self.table
             .unify
@@ -517,7 +605,12 @@ impl<'t, I: Interner> Unifier<'t, I> {
             .unwrap();
         debug!("var {:?} set to {:?}", var, generalized_val);
 
-        self.relate_ty_ty(variance, &generalized_val, &ty1)?;
+        self.relate_ty_ty(variance, &generalized_val, &ty1)
+            .map_err(|e| {
+                debug!("relate_ty_ty failed (no solution)");
+                e
+            })?;
+        debug!("generalized var {:?} related to {:?}", generalized_val, ty1);
 
         Ok(())
     }
@@ -581,6 +674,15 @@ impl<'t, I: Interner> Unifier<'t, I> {
         value: &Lifetime<I>,
         value_ui: UniverseIndex,
     ) -> Fallible<()> {
+        debug_span!(
+            "unify_lifetime_var",
+            ?variance,
+            ?a,
+            ?b,
+            ?var,
+            ?value,
+            ?value_ui
+        );
         let var = EnaVariable::from(var);
         let var_ui = self.table.universe_of_unbound_var(var);
         if var_ui.can_see(value_ui) {
@@ -679,6 +781,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
 
     #[instrument(level = "debug", skip(self))]
     fn unify_var_const(&mut self, var: InferenceVar, c: &Const<I>) -> Fallible<()> {
+        debug_span!("unify_var_const", ?var, ?c);
         let interner = self.interner;
         let var = EnaVariable::from(var);
 
@@ -719,6 +822,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
 
 impl<'i, I: Interner> Zipper<'i, I> for Unifier<'i, I> {
     fn zip_tys(&mut self, variance: Variance, a: &Ty<I>, b: &Ty<I>) -> Fallible<()> {
+        debug!("zip_tys {:?}, {:?}, {:?}", variance, a, b);
         self.relate_ty_ty(variance, a, b)
     }
 
@@ -797,6 +901,10 @@ where
     ) -> Fallible<Ty<I>> {
         let interner = self.interner();
         if self.universe_index < universe.ui {
+            debug!(
+                "OccursCheck aborting because self.universe_index ({:?}) < universe.ui ({:?})",
+                self.universe_index, universe.ui
+            );
             Err(NoSolution)
         } else {
             Ok(universe.to_ty(interner)) // no need to shift, not relative to depth
@@ -809,6 +917,7 @@ where
         ui: PlaceholderIndex,
         _outer_binder: DebruijnIndex,
     ) -> Fallible<Lifetime<I>> {
+        debug_span!("fold_free_placeholder_lifetime", ?ui, ?_outer_binder);
         let interner = self.interner();
         if self.universe_index < ui.ui {
             // Scenario is like:
