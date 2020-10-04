@@ -172,6 +172,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
             }
 
             (&TyData::Apply(ref apply1), &TyData::Apply(ref apply2)) => {
+                debug!("ty_ty apply/apply hit - {:?} unifying with {:?}", apply1, apply2);
                 Zip::zip_with(self, variance, apply1, apply2)
             }
 
@@ -212,6 +213,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
     /// Unify two inference variables
     #[instrument(level = "debug", skip(self))]
     fn unify_var_var(&mut self, a: InferenceVar, b: InferenceVar) -> Fallible<()> {
+        debug_span!("unify_var_var", ?a, ?b);
         let var1 = EnaVariable::from(a);
         let var2 = EnaVariable::from(b);
         Ok(self
@@ -232,6 +234,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         general_var: InferenceVar,
         specific_ty: Ty<I>,
     ) -> Fallible<()> {
+        debug_span!("unify_general_var_specific_ty", ?general_var, ?specific_ty);
         self.table
             .unify
             .unify_var_value(
@@ -255,6 +258,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         R: Zip<I> + Fold<I, Result = R>,
         't: 'a,
     {
+        debug_span!("relate_binders", ?variance, ?a, ?b);
         // for<'a...> T == for<'b...> U
         //
         // if:
@@ -295,6 +299,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
         alias: &AliasTy<I>,
         ty: &Ty<I>,
     ) -> Fallible<()> {
+        debug_span!("relate_alias_ty", ?variance, ?alias, ?ty);
         let interner = self.interner;
         match variance {
             Variance::Invariant => {
@@ -367,10 +372,18 @@ impl<'t, I: Interner> Unifier<'t, I> {
         // as the variable is unified.
         let universe_index = self.table.universe_of_unbound_var(var);
 
-        let ty1 = ty.fold_with(
-            &mut OccursCheck::new(self, var, universe_index),
-            DebruijnIndex::INNERMOST,
-        )?;
+        debug!("relate_var_ty: universe index of var: {:?}", universe_index);
+
+        debug!("trying fold_with on {:?}", ty);
+        let ty1 = ty
+            .fold_with(
+                &mut OccursCheck::new(self, var, universe_index),
+                DebruijnIndex::INNERMOST,
+            )
+            .map_err(|e| {
+                debug!("failed to fold {:?}", ty);
+                e
+            })?;
 
         // "Generalize" types. This ensures that we aren't accidentally forcing
         // too much onto `var`. Instead of directly setting `var` equal to `ty`,
@@ -499,6 +512,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
                 .intern(interner)
             }
             TyData::Placeholder(_) | TyData::BoundVar(_) => {
+                debug!("just generalizing to the ty itself: {:?}", ty1);
                 // BoundVar and PlaceHolder have no internal values to be
                 // generic over, so we just relate directly to it
                 ty1.clone()
@@ -507,6 +521,8 @@ impl<'t, I: Interner> Unifier<'t, I> {
                 unreachable!("relate_var_ty is not be called with ty = Alias or InferenceVar");
             }
         };
+
+        debug!("var {:?} generalized to {:?}", var, generalized_val);
 
         self.table
             .unify
@@ -517,7 +533,12 @@ impl<'t, I: Interner> Unifier<'t, I> {
             .unwrap();
         debug!("var {:?} set to {:?}", var, generalized_val);
 
-        self.relate_ty_ty(variance, &generalized_val, &ty1)?;
+        self.relate_ty_ty(variance, &generalized_val, &ty1)
+            .map_err(|e| {
+                debug!("relate_ty_ty failed (no solution)");
+                e
+            })?;
+        debug!("generalized var {:?} related to {:?}", generalized_val, ty1);
 
         Ok(())
     }
@@ -581,6 +602,15 @@ impl<'t, I: Interner> Unifier<'t, I> {
         value: &Lifetime<I>,
         value_ui: UniverseIndex,
     ) -> Fallible<()> {
+        debug_span!(
+            "unify_lifetime_var",
+            ?variance,
+            ?a,
+            ?b,
+            ?var,
+            ?value,
+            ?value_ui
+        );
         let var = EnaVariable::from(var);
         let var_ui = self.table.universe_of_unbound_var(var);
         if var_ui.can_see(value_ui) {
@@ -679,6 +709,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
 
     #[instrument(level = "debug", skip(self))]
     fn unify_var_const(&mut self, var: InferenceVar, c: &Const<I>) -> Fallible<()> {
+        debug_span!("unify_var_const", ?var, ?c);
         let interner = self.interner;
         let var = EnaVariable::from(var);
 
@@ -719,6 +750,7 @@ impl<'t, I: Interner> Unifier<'t, I> {
 
 impl<'i, I: Interner> Zipper<'i, I> for Unifier<'i, I> {
     fn zip_tys(&mut self, variance: Variance, a: &Ty<I>, b: &Ty<I>) -> Fallible<()> {
+        debug!("zip_tys {:?}, {:?}, {:?}", variance, a, b);
         self.relate_ty_ty(variance, a, b)
     }
 
@@ -797,6 +829,10 @@ where
     ) -> Fallible<Ty<I>> {
         let interner = self.interner();
         if self.universe_index < universe.ui {
+            debug!(
+                "OccursCheck aborting because self.universe_index ({:?}) < universe.ui ({:?})",
+                self.universe_index, universe.ui
+            );
             Err(NoSolution)
         } else {
             Ok(universe.to_ty(interner)) // no need to shift, not relative to depth
@@ -809,6 +845,7 @@ where
         ui: PlaceholderIndex,
         _outer_binder: DebruijnIndex,
     ) -> Fallible<Lifetime<I>> {
+        debug_span!("fold_free_placeholder_lifetime", ?ui, ?_outer_binder);
         let interner = self.interner();
         if self.universe_index < ui.ui {
             // Scenario is like:
