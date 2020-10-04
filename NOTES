@@ -1,0 +1,20 @@
+
+In a very confusing situation right now! BoundVars aren't handled well.
+Specifically, we're handling "dyn Trait" badly. In code, dyn Trait is
+represented as a Substitution like dyn forall<X> X: Trait.
+
+In the committed code, we generalize this to dyn forall<> ?1: Trait then call
+relate_ty_ty to unify that to the original ty, dyn forall<X> X: Trait. Or,
+really, that is dyn forall<> !1.0: Trait.
+
+This calls into relate_binders, which replaces !1.0 with a new inference
+variable, scoped specifically to a new universe. It then tries to relate the new
+inference variable with ?1, which fails, because the new inference variable is
+in a new universe! (and what would that mean anyways? The new inference variable
+has no data, it exists only for solving, so we shouldn't be setting ?1 to it.)
+
+In the current working directory, instead of calling `relate_ty_ty` at the end,
+we call into `relate_x_x` directly as we create each new inference variable.
+This again fails, but for a different reason - relate_ty_ty doesn't work with
+BoundVars! BoundVars are those like !1.0 which refer to a variable
+introduced by a for<> or exists<> by debrujin index.

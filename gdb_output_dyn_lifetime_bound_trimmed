@@ -1,0 +1,2939 @@
+Script started on 2020-09-26 22:50:40-07:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="220" LINES="44"]
+%
+
+
+~/proj/rust/chalk/
+$
+
+████████████████████████:~/proj/rust/chalk/
+$ gdb /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_boundgdb /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649
+
+GNU gdb (GDB) Fedora 9.1-6.fc32
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649...
+warning: Missing auto-load script at offset 0 in section .debug_gdb_scripts
+of file /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649.
+Use `info auto-load python-scripts [REGEXP]' to list them.
+(gdb) set args --test dyn_lifetime_bound
+(gdb) break chalk_solve::infer::
+chalk_solve::infer::InferenceTable<I>::commit
+chalk_solve::infer::InferenceTable<I>::from_canonical
+chalk_solve::infer::InferenceTable<I>::new
+chalk_solve::infer::InferenceTable<I>::new_universe
+chalk_solve::infer::InferenceTable<I>::new_variable
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::probe_var
+chalk_solve::infer::InferenceTable<I>::rollback_to
+chalk_solve::infer::InferenceTable<I>::snapshot
+chalk_solve::infer::InferenceTable<I>::universe_of_unbound_var
+chalk_solve::infer::canonicalize::<impl chalk_solve::infer::InferenceTable<I>>::canonicalize
+chalk_solve::infer::canonicalize::Canonicalizer<I>::add
+chalk_solve::infer::canonicalize::Canonicalizer<I>::add::{{closure}}
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders::{{closure}}
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders::{{closure}}::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}}::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_existentially
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_universally
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_universally::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_canonical
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_in
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_in::{{closure}}
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert_then_canonicalize
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert_then_canonicalize::{{closure}}
+chalk_solve::infer::invert::Inverter<I>::new
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize::{{closure}}
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize::{{closure}}::{{closure}}
+chalk_solve::infer::unify::<impl chalk_solve::infer::InferenceTable<I>>::relate
+chalk_solve::infer::unify::OccursCheck<I>::new
+chalk_solve::infer::unify::Unifier<I>::generalize_substitution
+chalk_solve::infer::unify::Unifier<I>::generalize_substitution::{{closure}}
+chalk_solve::infer::unify::Unifier<I>::new
+chalk_solve::infer::unify::Unifier<I>::push_lifetime_eq_goals
+--More--
+
+(gdb) break chalk_solve::infer::InferenceTable<I>::
+chalk_solve::infer::InferenceTable<I>::commit                                   chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::from_canonical                           chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow
+chalk_solve::infer::InferenceTable<I>::new                                      chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::new_universe                             chalk_solve::infer::InferenceTable<I>::probe_var
+chalk_solve::infer::InferenceTable<I>::new_variable                             chalk_solve::infer::InferenceTable<I>::rollback_to
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow                  chalk_solve::infer::InferenceTable<I>::snapshot
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow::{{closure}}     chalk_solve::infer::InferenceTable<I>::universe_of_unbound_var
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow
+(gdb) break chalk_solve::infer::InferenceTable<I>::new_variable
+Breakpoint 1 at 0x67dd87: file /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs, line 86.
+(gdb) run
+Starting program: /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.31-4.fc32.x86_64
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+running 1 test
+[New Thread 0x7ffff7c4b700 (LWP 46880)]
+[Switching to Thread 0x7ffff7c4b700 (LWP 46880)]
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c3dd60, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+Missing separate debuginfos, use: dnf debuginfo-install libgcc-10.2.1-1.fc32.x86_64
+(gdb) continue
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c3dd60, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+test test::existential_types::dyn_lifetime_bound ... FAILED(B
+
+failures:
+
+---- test::existential_types::dyn_lifetime_bound stdout ----
+program { trait Foo { } trait Eq < A > { } impl < A > Eq < A > for A { } }
+----------------------------------------------------------------------
+goal { forall < 'a > { forall < 'b > { dyn Foo + 'a : Eq < dyn Foo + 'b > } } }
+using solver: SLG { max_size: 10, expected_answers: None }
+expected:
+Unique; substitution [], lifetime constraints [InEnvironment { environment: Env([]), goal: '!1_0: '!2_0 }, InEnvironment { environment: Env([]), goal: '!2_0: '!1_0 }]
+actual:
+No possible solution
+thread 'test::existential_types::dyn_lifetime_bound' panicked at 'assertion failed: `(left == right)`
+
+Diff < left / right > :
+<"Unique;substitution[],lifetimeconstraints[InEnvironment{environment:Env([]),goal:\'!1_0:\'!2_0},InEnvironment{environment:Env([]),goal:\'!2_0:\'!1_0}]"
+>"Nopossiblesolution"
+
+', tests/test_util.rs:52:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test::existential_types::dyn_lifetime_bound
+
+test result: FAILED(B. 0 passed; 1 failed; 0 ignored; 0 measured; 435 filtered out
+
+[Thread 0x7ffff7c4b700 (LWP 46880) exited]
+[Inferior 1 (process 46876) exited with code 0145]
+(gdb)
+The program is not being run.
+(gdb) quitquit
+%
+
+
+████████████████████████:~chalk/
+$ CCHALK_DEBUG=debug
+
+%
+
+
+████████████████████████:~chalk/
+$ CHALK_DEBUG=debuggdb /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+
+
+running 1 test
+test test::existential_types::dyn_lifetime_bound ... FAILED(B
+
+failures:
+
+---- test::existential_types::dyn_lifetime_bound stdout ----
+program { trait Foo { } trait Eq < A > { } impl < A > Eq < A > for A { } }
+----------------------------------------------------------------------
+goal { forall < 'a > { forall < 'b > { dyn Foo + 'a : Eq < dyn Foo + 'b > } } }
+using solver: SLG { max_size: 10, expected_answers: None }
+expected:
+Unique; substitution [], lifetime constraints [InEnvironment { environment: Env([]), goal: '!1_0: '!2_0 }, InEnvironment { environment: Env([]), goal: '!2_0: '!1_0 }]
+actual:
+No possible solution
+thread 'test::existential_types::dyn_lifetime_bound' panicked at 'assertion failed: `(left == right)`
+
+Diff < left / right > :
+<"Unique;substitution[],lifetimeconstraints[InEnvironment{environment:Env([]),goal:\'!1_0:\'!2_0},InEnvironment{environment:Env([]),goal:\'!2_0:\'!1_0}]"
+>"Nopossiblesolution"
+
+', tests/test_util.rs:52:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test::existential_types::dyn_lifetime_bound
+
+test result: FAILED(B. 0 passed; 1 failed; 0 ignored; 0 measured; 435 filtered out
+
+%
+
+
+████████████████████████:~chalk/
+$ /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_boundCHALK_DEBUG=debug                                                                              =debug =debug =debug =debug =debug L=debugO=debugG=debug
+
+%
+
+
+████████████████████████:~chalk/
+$ CHALK_LOG=debugeCHALK_LOG=debugerCHALK_LOG=debugxCHALK_LOG=debug e exCHALK_LOG=debugpCHALK_LOG=debugoCHALK_LOG=debugrCHALK_LOG=debugtCHALK_LOG=debug CHALK_LOG=debug
+
+%
+
+
+████████████████████████:~chalk/
+$ export CHALK_LOG=debug       /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+
+
+running 1 test
+test test::existential_types::dyn_lifetime_bound ... FAILED(B
+
+failures:
+
+---- test::existential_types::dyn_lifetime_bound stdout ----
+program { trait Foo { } trait Eq < A > { } impl < A > Eq < A > for A { } }
+----------------------------------------------------------------------
+goal { forall < 'a > { forall < 'b > { dyn Foo + 'a : Eq < dyn Foo + 'b > } } }
+using solver: SLG { max_size: 10, expected_answers: None }
+expected:
+Unique; substitution [], lifetime constraints [InEnvironment { environment: Env([]), goal: '!1_0: '!2_0 }, InEnvironment { environment: Env([]), goal: '!2_0: '!1_0 }]
+actual:
+No possible solution
+thread 'test::existential_types::dyn_lifetime_bound' panicked at 'assertion failed: `(left == right)`
+
+Diff < left / right > :
+<"Unique;substitution[],lifetimeconstraints[InEnvironment{environment:Env([]),goal:\'!1_0:\'!2_0},InEnvironment{environment:Env([]),goal:\'!2_0:\'!1_0}]"
+>"Nopossiblesolution"
+
+', tests/test_util.rs:52:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test::existential_types::dyn_lifetime_bound
+
+test result: FAILED(B. 0 passed; 1 failed; 0 ignored; 0 measured; 435 filtered out
+
+%
+
+
+████████████████████████:~chalk/
+$ /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+
+%
+
+
+████████████████████████:~chalk/
+$ hhsgr  h  
+
+bck-i-search: _export CHALK_LOG=debugC_CHH_HAA_ALL_LKK_K__       DEBUG=debugexport CHALK_DEBUG=debugCHALK_
+
+%
+
+
+████████████████████████:~chalk/
+$ export CHALK_DEBUG=debug/home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+
+
+running 1 test
+DEBUG trait_datum=TraitDatum { id: TraitId(#0), binders: for[type] TraitDatumBound { where_clauses: [] }, flags: TraitFlags { auto: false, marker: false, upstream: false, fundamental: false, non_enumerable: false, coinductive: false }, associated_ty_ids: [], well_known: None }
+DEBUG trait_datum=TraitDatum { id: TraitId(#1), binders: for[type, type] TraitDatumBound { where_clauses: [] }, flags: TraitFlags { auto: false, marker: false, upstream: false, fundamental: false, non_enumerable: false, coinductive: false }, associated_ty_ids: [], well_known: None }
+lower_impl{impl_id=ImplId(#2)}
+  0ms DEBUG trait_ref=SeparatorTraitRef(?)
+  0ms DEBUG where_clauses=SeparatorTraitRef(?)
+  0ms DEBUG associated_ty_value_ids=[]
+perform_orphan_check{impl_id=ImplId(#2)}
+  0ms DEBUG impl_datum=ImplDatum { polarity: Positive, binders: for<type> ImplDatumBound { trait_ref: ^0.0 as Eq<^0.0>, where_clauses: [] }, impl_type: Local, associated_ty_value_ids: [] }
+  canonicalize{message=InEnvironment {
+      environment: Env([]),
+      goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+  }}
+  u_canonicalize{message=Canonical {
+      value: InEnvironment {
+          environment: Env([]),
+          goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+      },
+      binders: [],
+  }}
+  get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) } }, binders: [] }, universes: 1 }}
+    0ms  INFO creating new table with goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }, table=TableIndex(0)
+    0ms DEBUG created new universe: U1
+    0ms  INFO pushing initial strand, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [Positive(InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) })], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }
+    canonicalize{message=ExClause {
+        subst: [],
+        ambiguous: false,
+        constraints: [],
+        subgoals: [
+            Positive(
+                InEnvironment {
+                    environment: Env([]),
+                    goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                },
+            ),
+        ],
+        delayed_subgoals: [],
+        answer_time: TimeStamp {
+            clock: 0,
+        },
+        floundered_subgoals: [],
+    }}
+  ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+    0ms  INFO table goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }
+    0ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [
+                Positive(
+                    InEnvironment {
+                        environment: Env([]),
+                        goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                    },
+                ),
+            ],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) })}
+      canonicalize{message=InEnvironment {
+          environment: Env([]),
+          goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+      }}
+      u_canonicalize{message=Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+          },
+          binders: [],
+      }}
+      0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+      get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+        0ms  INFO creating new table with goal = UCanonical {
+            canonical: Canonical {
+                value: InEnvironment {
+                    environment: Env([]),
+                    goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                },
+                binders: [],
+            },
+            universes: 2,
+        }, table=TableIndex(1)
+        0ms DEBUG created new universe: U1
+        program_clauses_for_goal{environment=Env([]), goal=LocalImplAllowed(!1_0: Eq<!1_0>), binders=[]}
+          program_clauses_that_could_match{goal=LocalImplAllowed(!1_0: Eq<!1_0>), binders=[]}
+            push_binders{binders=for<type, type> []}
+              0ms DEBUG value=[]
+              0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+              0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+              0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+          0ms DEBUG clauses=[for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)]
+        0ms  INFO program clause = for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)
+        resolvent_clause{db=ChalkDatabase { }, goal=LocalImplAllowed(!1_0: Eq<!1_0>), clause=for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)}
+          0ms DEBUG created new variable, var=?0, ui=U1
+          0ms DEBUG created new variable, var=?1, ui=U1
+          0ms DEBUG consequence=LocalImplAllowed(?0: Eq<?1>), conditions=(), constraints=[]
+          relate{variance=Invariant, a=LocalImplAllowed(!1_0: Eq<!1_0>), b=LocalImplAllowed(?0: Eq<?1>)}
+            relate{variance=Invariant, a=LocalImplAllowed(!1_0: Eq<!1_0>), b=LocalImplAllowed(?0: Eq<?1>)}
+              0ms DEBUG zip_tys Invariant, !1_0, ?0
+              relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+                relate_var_ty{var=?0, ty=!1_0}
+                  0ms DEBUG relate_var_ty: universe index of var: U1
+                  0ms DEBUG trying fold_with on !1_0
+                  0ms DEBUG just generalizing to the ty itself: !1_0
+                  0ms DEBUG var ?0 generalized to !1_0
+                  0ms DEBUG var ?0 set to !1_0
+                  relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                  0ms DEBUG generalized var !1_0 related to !1_0
+              0ms DEBUG zip_tys Invariant, !1_0, ?1
+              relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+                relate_var_ty{var=?1, ty=!1_0}
+                  0ms DEBUG relate_var_ty: universe index of var: U1
+                  0ms DEBUG trying fold_with on !1_0
+                  0ms DEBUG just generalizing to the ty itself: !1_0
+                  0ms DEBUG var ?1 generalized to !1_0
+                  0ms DEBUG var ?1 set to !1_0
+                  relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                  0ms DEBUG generalized var !1_0 related to !1_0
+        2ms  INFO pushing initial strand with ex-clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        }
+        canonicalize{message=ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        }}
+    3ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+    3ms DEBUG created new universe: U1
+    3ms DEBUG created new universe: U1
+    3ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    3ms DEBUG no remaining subgoals for the table
+    canonicalize{message=AnswerSubst {
+        subst: [],
+        constraints: [],
+        delayed_subgoals: [],
+    }}
+    3ms DEBUG found answer, table=TableIndex(1), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+    push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+      0ms DEBUG pre-existing entry: None
+      0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    4ms DEBUG answer is available
+    4ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [
+                Positive(
+                    InEnvironment {
+                        environment: Env([]),
+                        goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                    },
+                ),
+            ],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: Some(
+            SelectedSubgoal {
+                subgoal_index: 0,
+                subgoal_table: TableIndex(1),
+                answer_index: AnswerIndex(0),
+                universe_map: UniverseMap {
+                    universes: [
+                        U0,
+                        U1,
+                    ],
+                },
+            },
+        ),
+    }
+    4ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+    4ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+    map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+    apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+      0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }
+    4ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+    4ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 1,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    4ms DEBUG no remaining subgoals for the table
+    canonicalize{message=AnswerSubst {
+        subst: [],
+        constraints: [],
+        delayed_subgoals: [],
+    }}
+    4ms DEBUG found answer, table=TableIndex(0), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+    push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+      0ms DEBUG pre-existing entry: None
+      0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) } }, binders: [] }, universes: 1 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    5ms DEBUG answer is available
+  6ms DEBUG answer=CompleteAnswer { subst: Canonical { value: ConstrainedSubst { subst: [], constraints: [] }, binders: [] }, ambiguous: false }
+  ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(1)}
+    0ms  INFO table goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }
+    0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+    0ms DEBUG no more strands available
+    0ms DEBUG no more solutions
+  6ms DEBUG overlaps = true
+DEBUG input_types=[]
+DEBUG WF trait goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } }
+canonicalize{message=InEnvironment {
+    environment: Env([]),
+    goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+}}
+u_canonicalize{message=Canonical {
+    value: InEnvironment {
+        environment: Env([]),
+        goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+    },
+    binders: [],
+}}
+get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } } }, binders: [] }, universes: 1 }}
+  0ms  INFO creating new table with goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }, table=TableIndex(0)
+  0ms DEBUG created new universe: U1
+  0ms  INFO pushing initial strand, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [Positive(InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) })], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: WellFormed(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: WellFormed(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(1)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=WellFormed(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=WellFormed(!1_0: Eq<!1_0>), binders=[]}
+          push_binders{binders=for<type, type> []}
+            0ms DEBUG value=[]
+            0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+        0ms DEBUG clauses=[for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)]
+      0ms  INFO program clause = for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)
+      resolvent_clause{db=ChalkDatabase { }, goal=WellFormed(!1_0: Eq<!1_0>), clause=for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)}
+        0ms DEBUG created new variable, var=?0, ui=U1
+        0ms DEBUG created new variable, var=?1, ui=U1
+        0ms DEBUG consequence=WellFormed(?0: Eq<?1>), conditions=(Implemented(?0: Eq<?1>)), constraints=[]
+        relate{variance=Invariant, a=WellFormed(!1_0: Eq<!1_0>), b=WellFormed(?0: Eq<?1>)}
+          relate{variance=Invariant, a=WellFormed(!1_0: Eq<!1_0>), b=WellFormed(?0: Eq<?1>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            0ms DEBUG zip_tys Invariant, !1_0, ?1
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+              relate_var_ty{var=?1, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?1 generalized to !1_0
+                0ms DEBUG var ?1 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+      2ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+        fold_inference_ty{var=?0, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+        fold_inference_ty{var=?1, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+  3ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  3ms DEBUG created new universe: U1
+  3ms DEBUG created new universe: U1
+  3ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: Implemented(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: Implemented(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: Implemented(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(2)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=Implemented(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=Implemented(!1_0: Eq<!1_0>), binders=[]}
+          push_binders{binders=for<type, type> []}
+            0ms DEBUG value=[]
+            0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+          push_binders{binders=for<type> (^0.0 as Eq<^0.0>, [])}
+            0ms DEBUG value=(^0.0 as Eq<^0.0>, [])
+            0ms DEBUG pushed clause Some(for<type> Implemented(^0.0: Eq<^0.0>))
+        0ms DEBUG clauses=[for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>), for<type> Implemented(^0.0: Eq<^0.0>)]
+      1ms  INFO program clause = for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)
+      resolvent_clause{db=ChalkDatabase { }, goal=Implemented(!1_0: Eq<!1_0>), clause=for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)}
+        0ms DEBUG created new variable, var=?0, ui=U1
+        0ms DEBUG created new variable, var=?1, ui=U1
+        0ms DEBUG consequence=Implemented(?0: Eq<?1>), conditions=(FromEnv(?0: Eq<?1>)), constraints=[]
+        relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?1>)}
+          relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?1>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            0ms DEBUG zip_tys Invariant, !1_0, ?1
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+              relate_var_ty{var=?1, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?1 generalized to !1_0
+                0ms DEBUG var ?1 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+      2ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+        fold_inference_ty{var=?0, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+        fold_inference_ty{var=?1, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+      3ms  INFO program clause = for<type> Implemented(^0.0: Eq<^0.0>)
+      resolvent_clause{db=ChalkDatabase { }, goal=Implemented(!1_0: Eq<!1_0>), clause=for<type> Implemented(^0.0: Eq<^0.0>)}
+        0ms DEBUG created new variable, var=?0, ui=U1
+        0ms DEBUG consequence=Implemented(?0: Eq<?0>), conditions=(), constraints=[]
+        relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?0>)}
+          relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?0>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+      4ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+  8ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  8ms DEBUG created new universe: U1
+  8ms DEBUG created new universe: U1
+  8ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: FromEnv(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: FromEnv(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: FromEnv(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(3)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=FromEnv(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=FromEnv(!1_0: Eq<!1_0>), binders=[]}
+        0ms DEBUG clauses=[]
+  9ms DEBUG table selection TableIndex(3) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(3), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  9ms DEBUG no more strands available (or all cycles) for TableIndex(3)
+  9ms DEBUG no more strands available
+  9ms DEBUG discarding strand because positive literal
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: Implemented(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(1),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  12ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  12ms DEBUG created new universe: U1
+  12ms DEBUG created new universe: U1
+  12ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(2),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  12ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  12ms DEBUG created new universe: U1
+  12ms DEBUG created new universe: U1
+  12ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  12ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  13ms DEBUG found answer, table=TableIndex(2), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  13ms DEBUG answer is available
+  13ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(2),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  13ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  13ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+  map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+  apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+    0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }
+  14ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+  14ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 1,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  14ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  14ms DEBUG found answer, table=TableIndex(1), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  14ms DEBUG answer is available
+  14ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(1),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  14ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  14ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+  map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+  apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+    0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }
+  15ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+  15ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 1,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  15ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  15ms DEBUG found answer, table=TableIndex(0), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } } }, binders: [] }, universes: 1 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  15ms DEBUG answer is available
+DEBUG answer=CompleteAnswer { subst: Canonical { value: ConstrainedSubst { subst: [], constraints: [] }, binders: [] }, ambiguous: false }
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(1)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+  0ms DEBUG no more strands available
+  0ms DEBUG no more solutions
+DEBUG created new universe: U1
+DEBUG created new universe: U2
+canonicalize{message=InEnvironment {
+    environment: Env([]),
+    goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+}}
+u_canonicalize{message=Canonical {
+    value: InEnvironment {
+        environment: Env([]),
+        goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+    },
+    binders: [],
+}}
+get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>) }, binders: [] }, universes: 3 }}
+  0ms  INFO creating new table with goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+          },
+          binders: [],
+      },
+      universes: 3,
+  }, table=TableIndex(0)
+  0ms DEBUG created new universe: U1
+  0ms DEBUG created new universe: U2
+  program_clauses_for_goal{environment=Env([]), goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), binders=[]}
+    program_clauses_that_could_match{goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), binders=[]}
+      push_binders{binders=for<type, type> []}
+        0ms DEBUG value=[]
+        0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+        0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+        0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+      push_binders{binders=for<type> (^0.0 as Eq<^0.0>, [])}
+        0ms DEBUG value=(^0.0 as Eq<^0.0>, [])
+        0ms DEBUG pushed clause Some(for<type> Implemented(^0.0: Eq<^0.0>))
+      push_binders{binders=for<> dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+        0ms DEBUG value=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+        push_binders{binders=for<> Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo)}
+          0ms DEBUG value=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo)
+          push_binders{binders=for<> dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0 as Foo}
+            0ms DEBUG value=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0 as Foo
+            0ms DEBUG pushed clause Some(for<> Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo))
+    1ms DEBUG clauses=[for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>), for<type> Implemented(^0.0: Eq<^0.0>)]
+  2ms  INFO program clause = for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)
+  resolvent_clause{db=ChalkDatabase { }, goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), clause=for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)}
+    0ms DEBUG created new variable, var=?0, ui=U2
+    0ms DEBUG created new variable, var=?1, ui=U2
+    0ms DEBUG consequence=Implemented(?0: Eq<?1>), conditions=(FromEnv(?0: Eq<?1>)), constraints=[]
+    relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?1>)}
+      relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?1>)}
+        0ms DEBUG zip_tys Invariant, dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, ?0
+        relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, b=?0}
+          relate_var_ty{var=?0, ty=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+            0ms DEBUG relate_var_ty: universe index of var: U2
+            0ms DEBUG trying fold_with on dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+            fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+              fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+            0ms DEBUG created new variable, var=?2, ui=U2
+            generalize_substitution{substitution=[?0 := ^1.0], universe_index=U2}
+              0ms DEBUG created new variable, var=?3, ui=U2
+            0ms DEBUG var ?0 generalized to dyn for<type> [for<> Implemented(?3: Foo)] + '?2
+            0ms DEBUG var ?0 set to dyn for<type> [for<> Implemented(?3: Foo)] + '?2
+            relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(?3: Foo)] + '?2, b=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+              relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?3: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?3: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                  0ms DEBUG created new universe: U3
+                  0ms DEBUG created new variable, var=?4, ui=U3
+                  relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(?4: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(?4: Foo)}
+                      0ms DEBUG created new universe: U4
+                      0ms DEBUG zip_tys Invariant, ?3, ?4
+                      relate_ty_ty{variance=Invariant, a=?3, b=?4}
+                        unify_var_var{a=?3, b=?4}
+                          unify_var_var{a=?3, b=?4}
+                      0ms DEBUG created new universe: U5
+                      0ms DEBUG zip_tys Invariant, ?3, ?4
+                      relate_ty_ty{variance=Invariant, a=?3, b=?4}
+                        unify_var_var{a=?3, b=?4}
+                          unify_var_var{a=?3, b=?4}
+                  1ms DEBUG created new universe: U6
+                  1ms DEBUG created new variable, var=?5, ui=U6
+                  relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(!6_0: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(!6_0: Foo)}
+                      0ms DEBUG created new universe: U7
+                      0ms DEBUG zip_tys Invariant, ?3, !6_0
+                      relate_ty_ty{variance=Invariant, a=?3, b=!6_0}
+                        relate_var_ty{var=?3, ty=!6_0}
+                          0ms DEBUG relate_var_ty: universe index of var: U2
+                          0ms DEBUG trying fold_with on !6_0
+                          0ms DEBUG OccursCheck aborting because self.universe_index (U2) < universe.ui (U6)
+                          0ms DEBUG failed to fold !6_0
+            3ms DEBUG relate_ty_ty failed (no solution)
+  6ms  INFO program clause = for<type> Implemented(^0.0: Eq<^0.0>)
+  resolvent_clause{db=ChalkDatabase { }, goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), clause=for<type> Implemented(^0.0: Eq<^0.0>)}
+    0ms DEBUG created new variable, var=?0, ui=U2
+    0ms DEBUG consequence=Implemented(?0: Eq<?0>), conditions=(), constraints=[]
+    relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?0>)}
+      relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?0>)}
+        0ms DEBUG zip_tys Invariant, dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, ?0
+        relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, b=?0}
+          relate_var_ty{var=?0, ty=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+            0ms DEBUG relate_var_ty: universe index of var: U2
+            0ms DEBUG trying fold_with on dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+            fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+              fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+            0ms DEBUG created new variable, var=?1, ui=U2
+            generalize_substitution{substitution=[?0 := ^1.0], universe_index=U2}
+              0ms DEBUG created new variable, var=?2, ui=U2
+            0ms DEBUG var ?0 generalized to dyn for<type> [for<> Implemented(?2: Foo)] + '?1
+            0ms DEBUG var ?0 set to dyn for<type> [for<> Implemented(?2: Foo)] + '?1
+            relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(?2: Foo)] + '?1, b=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+              relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?2: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?2: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                  0ms DEBUG created new universe: U3
+                  0ms DEBUG created new variable, var=?3, ui=U3
+                  relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(?3: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(?3: Foo)}
+                      0ms DEBUG created new universe: U4
+                      0ms DEBUG zip_tys Invariant, ?2, ?3
+                      relate_ty_ty{variance=Invariant, a=?2, b=?3}
+                        unify_var_var{a=?2, b=?3}
+                          unify_var_var{a=?2, b=?3}
+                      0ms DEBUG created new universe: U5
+                      0ms DEBUG zip_tys Invariant, ?2, ?3
+                      relate_ty_ty{variance=Invariant, a=?2, b=?3}
+                        unify_var_var{a=?2, b=?3}
+                          unify_var_var{a=?2, b=?3}
+                  1ms DEBUG created new universe: U6
+                  1ms DEBUG created new variable, var=?4, ui=U6
+                  relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(!6_0: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(!6_0: Foo)}
+                      0ms DEBUG created new universe: U7
+                      0ms DEBUG zip_tys Invariant, ?2, !6_0
+                      relate_ty_ty{variance=Invariant, a=?2, b=!6_0}
+                        relate_var_ty{var=?2, ty=!6_0}
+                          0ms DEBUG relate_var_ty: universe index of var: U2
+                          0ms DEBUG trying fold_with on !6_0
+                          0ms DEBUG OccursCheck aborting because self.universe_index (U2) < universe.ui (U6)
+                          0ms DEBUG failed to fold !6_0
+            3ms DEBUG relate_ty_ty failed (no solution)
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+          },
+          binders: [],
+      },
+      universes: 3,
+  }
+  0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+  0ms DEBUG no more strands available
+  0ms DEBUG no more solutions
+test test::existential_types::dyn_lifetime_bound ... FAILED(B
+
+failures:
+
+---- test::existential_types::dyn_lifetime_bound stdout ----
+program { trait Foo { } trait Eq < A > { } impl < A > Eq < A > for A { } }
+----------------------------------------------------------------------
+goal { forall < 'a > { forall < 'b > { dyn Foo + 'a : Eq < dyn Foo + 'b > } } }
+using solver: SLG { max_size: 10, expected_answers: None }
+expected:
+Unique; substitution [], lifetime constraints [InEnvironment { environment: Env([]), goal: '!1_0: '!2_0 }, InEnvironment { environment: Env([]), goal: '!2_0: '!1_0 }]
+actual:
+No possible solution
+thread 'test::existential_types::dyn_lifetime_bound' panicked at 'assertion failed: `(left == right)`
+
+Diff < left / right > :
+<"Unique;substitution[],lifetimeconstraints[InEnvironment{environment:Env([]),goal:\'!1_0:\'!2_0},InEnvironment{environment:Env([]),goal:\'!2_0:\'!1_0}]"
+>"Nopossiblesolution"
+
+', tests/test_util.rs:52:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test::existential_types::dyn_lifetime_bound
+
+test result: FAILED(B. 0 passed; 1 failed; 0 ignored; 0 measured; 435 filtered out
+
+%
+
+
+████████████████████████:~chalk/
+$ /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_boundexport CHALK_DEBUG=debug                                                                       LOG=debug         DEBUG=debuggdb /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649
+
+GNU gdb (GDB) Fedora 9.1-6.fc32
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649...
+warning: Missing auto-load script at offset 0 in section .debug_gdb_scripts
+of file /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649.
+Use `info auto-load python-scripts [REGEXP]' to list them.
+(gdb) set args --test dyn_lifetime_bound
+(gdb) break inf
+chalk_ir::Const<I>::inference_var
+chalk_ir::Lifetime<I>::inference_var
+chalk_ir::Ty<I>::inference_var
+chalk_solve::infer::InferenceTable<I>::commit
+chalk_solve::infer::InferenceTable<I>::from_canonical
+chalk_solve::infer::InferenceTable<I>::new
+chalk_solve::infer::InferenceTable<I>::new_universe
+chalk_solve::infer::InferenceTable<I>::new_variable
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow
+chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::probe_var
+chalk_solve::infer::InferenceTable<I>::rollback_to
+chalk_solve::infer::InferenceTable<I>::snapshot
+chalk_solve::infer::InferenceTable<I>::universe_of_unbound_var
+chalk_solve::infer::canonicalize::<impl chalk_solve::infer::InferenceTable<I>>::canonicalize
+chalk_solve::infer::canonicalize::Canonicalizer<I>::add
+chalk_solve::infer::canonicalize::Canonicalizer<I>::add::{{closure}}
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders::{{closure}}
+chalk_solve::infer::canonicalize::Canonicalizer<I>::into_binders::{{closure}}::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}}::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_existentially
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_universally
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_universally::{{closure}}
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_canonical
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_in
+chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_in::{{closure}}
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert_then_canonicalize
+chalk_solve::infer::invert::<impl chalk_solve::infer::InferenceTable<I>>::invert_then_canonicalize::{{closure}}
+chalk_solve::infer::invert::Inverter<I>::new
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize::{{closure}}
+chalk_solve::infer::ucanonicalize::<impl chalk_solve::infer::InferenceTable<I>>::u_canonicalize::{{closure}}::{{closure}}
+chalk_solve::infer::unify::<impl chalk_solve::infer::InferenceTable<I>>::relate
+chalk_solve::infer::unify::OccursCheck<I>::new
+chalk_solve::infer::unify::Unifier<I>::generalize_substitution
+--More--
+
+(gdb) break infchalk_solve::infer::InferenceTable<I>::
+chalk_solve::infer::InferenceTable<I>::commit                                   chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::from_canonical                           chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow
+chalk_solve::infer::InferenceTable<I>::new                                      chalk_solve::infer::InferenceTable<I>::normalize_ty_shallow::{{closure}}
+chalk_solve::infer::InferenceTable<I>::new_universe                             chalk_solve::infer::InferenceTable<I>::probe_var
+chalk_solve::infer::InferenceTable<I>::new_variable                             chalk_solve::infer::InferenceTable<I>::rollback_to
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow                  chalk_solve::infer::InferenceTable<I>::snapshot
+chalk_solve::infer::InferenceTable<I>::normalize_const_shallow::{{closure}}     chalk_solve::infer::InferenceTable<I>::universe_of_unbound_var
+chalk_solve::infer::InferenceTable<I>::normalize_lifetime_shallow
+(gdb) break chalk_solve::infer::InferenceTable<I>::new_variable
+Breakpoint 1 at 0x67dd87: file /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs, line 86.
+(gdb) run
+Starting program: /home/daboross/proj/rust/chalk/target/debug/deps/lib-ebdaf2696ab0f649 --test dyn_lifetime_bound
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.31-4.fc32.x86_64
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+running 1 test
+[New Thread 0x7ffff7c4b700 (LWP 47001)]
+cDEBUG trait_datum=TraitDatum { id: TraitId(#0), binders: for[type] TraitDatumBound { where_clauses: [] }, flags: TraitFlags { auto: false, marker: false, upstream: false, fundamental: false, non_enumerable: false, coinductive: false }, associated_ty_ids: [], well_known: None }
+DEBUG trait_datum=TraitDatum { id: TraitId(#1), binders: for[type, type] TraitDatumBound { where_clauses: [] }, flags: TraitFlags { auto: false, marker: false, upstream: false, fundamental: false, non_enumerable: false, coinductive: false }, associated_ty_ids: [], well_known: None }
+lower_impl{impl_id=ImplId(#2)}
+  0ms DEBUG trait_ref=SeparatorTraitRef(?)
+  0ms DEBUG where_clauses=SeparatorTraitRef(?)
+  0ms DEBUG associated_ty_value_ids=[]
+perform_orphan_check{impl_id=ImplId(#2)}
+  0ms DEBUG impl_datum=ImplDatum { polarity: Positive, binders: for<type> ImplDatumBound { trait_ref: ^0.0 as Eq<^0.0>, where_clauses: [] }, impl_type: Local, associated_ty_value_ids: [] }
+  canonicalize{message=InEnvironment {
+      environment: Env([]),
+      goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+  }}
+  u_canonicalize{message=Canonical {
+      value: InEnvironment {
+          environment: Env([]),
+          goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+      },
+      binders: [],
+  }}
+  get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) } }, binders: [] }, universes: 1 }}
+    0ms  INFO creating new table with goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }, table=TableIndex(0)
+    0ms DEBUG created new universe: U1
+    0ms  INFO pushing initial strand, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [Positive(InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) })], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }
+    canonicalize{message=ExClause {
+        subst: [],
+        ambiguous: false,
+        constraints: [],
+        subgoals: [
+            Positive(
+                InEnvironment {
+                    environment: Env([]),
+                    goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                },
+            ),
+        ],
+        delayed_subgoals: [],
+        answer_time: TimeStamp {
+            clock: 0,
+        },
+        floundered_subgoals: [],
+    }}
+  ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+    0ms  INFO table goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }
+    0ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [
+                Positive(
+                    InEnvironment {
+                        environment: Env([]),
+                        goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                    },
+                ),
+            ],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) })}
+      canonicalize{message=InEnvironment {
+          environment: Env([]),
+          goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+      }}
+      u_canonicalize{message=Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+          },
+          binders: [],
+      }}
+      0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+      get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+        0ms  INFO creating new table with goal = UCanonical {
+            canonical: Canonical {
+                value: InEnvironment {
+                    environment: Env([]),
+                    goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                },
+                binders: [],
+            },
+            universes: 2,
+        }, table=TableIndex(1)
+        0ms DEBUG created new universe: U1
+        program_clauses_for_goal{environment=Env([]), goal=LocalImplAllowed(!1_0: Eq<!1_0>), binders=[]}
+          program_clauses_that_could_match{goal=LocalImplAllowed(!1_0: Eq<!1_0>), binders=[]}
+            push_binders{binders=for<type, type> []}
+              0ms DEBUG value=[]
+              0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+              0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+              0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+          0ms DEBUG clauses=[for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)]
+        0ms  INFO program clause = for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)
+        resolvent_clause{db=ChalkDatabase { }, goal=LocalImplAllowed(!1_0: Eq<!1_0>), clause=for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>)}
+[Switching to Thread 0x7ffff7c4b700 (LWP 47001)]
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c3dd60, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+Missing separate debuginfos, use: dnf debuginfo-install libgcc-10.2.1-1.fc32.x86_64
+(gdb) continue
+Continuing.
+          5066ms DEBUG created new variable, var=?0, ui=U1
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c3dd60, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+          6089ms DEBUG created new variable, var=?1, ui=U1
+          6089ms DEBUG consequence=LocalImplAllowed(?0: Eq<?1>), conditions=(), constraints=[]
+          relate{variance=Invariant, a=LocalImplAllowed(!1_0: Eq<!1_0>), b=LocalImplAllowed(?0: Eq<?1>)}
+            relate{variance=Invariant, a=LocalImplAllowed(!1_0: Eq<!1_0>), b=LocalImplAllowed(?0: Eq<?1>)}
+              0ms DEBUG zip_tys Invariant, !1_0, ?0
+              relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+                relate_var_ty{var=?0, ty=!1_0}
+                  0ms DEBUG relate_var_ty: universe index of var: U1
+                  0ms DEBUG trying fold_with on !1_0
+                  0ms DEBUG just generalizing to the ty itself: !1_0
+                  0ms DEBUG var ?0 generalized to !1_0
+                  0ms DEBUG var ?0 set to !1_0
+                  relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                  1ms DEBUG generalized var !1_0 related to !1_0
+              1ms DEBUG zip_tys Invariant, !1_0, ?1
+              relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+                relate_var_ty{var=?1, ty=!1_0}
+                  0ms DEBUG relate_var_ty: universe index of var: U1
+                  0ms DEBUG trying fold_with on !1_0
+                  0ms DEBUG just generalizing to the ty itself: !1_0
+                  0ms DEBUG var ?1 generalized to !1_0
+                  0ms DEBUG var ?1 set to !1_0
+                  relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                  0ms DEBUG generalized var !1_0 related to !1_0
+        6094ms  INFO pushing initial strand with ex-clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        }
+        canonicalize{message=ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        }}
+    6095ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+    6095ms DEBUG created new universe: U1
+    6095ms DEBUG created new universe: U1
+    6095ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    6095ms DEBUG no remaining subgoals for the table
+    canonicalize{message=AnswerSubst {
+        subst: [],
+        constraints: [],
+        delayed_subgoals: [],
+    }}
+    6096ms DEBUG found answer, table=TableIndex(1), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+    push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+      0ms DEBUG pre-existing entry: None
+      0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    6096ms DEBUG answer is available
+    6096ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [
+                Positive(
+                    InEnvironment {
+                        environment: Env([]),
+                        goal: LocalImplAllowed(!1_0: Eq<!1_0>),
+                    },
+                ),
+            ],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 0,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: Some(
+            SelectedSubgoal {
+                subgoal_index: 0,
+                subgoal_table: TableIndex(1),
+                answer_index: AnswerIndex(0),
+                universe_map: UniverseMap {
+                    universes: [
+                        U0,
+                        U1,
+                    ],
+                },
+            },
+        ),
+    }
+    6097ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+    6097ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+    map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+    apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+      0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: LocalImplAllowed(!1_0: Eq<!1_0>) }
+    6098ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+    6098ms DEBUG starting next strand = Strand {
+        ex_clause: ExClause {
+            subst: [],
+            ambiguous: false,
+            constraints: [],
+            subgoals: [],
+            delayed_subgoals: [],
+            answer_time: TimeStamp {
+                clock: 1,
+            },
+            floundered_subgoals: [],
+        },
+        selected_subgoal: None,
+    }
+    6098ms DEBUG no remaining subgoals for the table
+    canonicalize{message=AnswerSubst {
+        subst: [],
+        constraints: [],
+        delayed_subgoals: [],
+    }}
+    6098ms DEBUG found answer, table=TableIndex(0), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+    push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+      0ms DEBUG pre-existing entry: None
+      0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) } }, binders: [] }, universes: 1 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+    6098ms DEBUG answer is available
+  6099ms DEBUG answer=CompleteAnswer { subst: Canonical { value: ConstrainedSubst { subst: [], constraints: [] }, binders: [] }, ambiguous: false }
+  ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(1)}
+    0ms  INFO table goal = UCanonical {
+        canonical: Canonical {
+            value: InEnvironment {
+                environment: Env([]),
+                goal: ForAll<type> { LocalImplAllowed(^0.0: Eq<^0.0>) },
+            },
+            binders: [],
+        },
+        universes: 1,
+    }
+    0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+    0ms DEBUG no more strands available
+    0ms DEBUG no more solutions
+  6100ms DEBUG overlaps = true
+DEBUG input_types=[]
+DEBUG WF trait goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } }
+canonicalize{message=InEnvironment {
+    environment: Env([]),
+    goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+}}
+u_canonicalize{message=Canonical {
+    value: InEnvironment {
+        environment: Env([]),
+        goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+    },
+    binders: [],
+}}
+get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } } }, binders: [] }, universes: 1 }}
+  0ms  INFO creating new table with goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }, table=TableIndex(0)
+  0ms DEBUG created new universe: U1
+  0ms  INFO pushing initial strand, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [Positive(InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) })], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: WellFormed(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: WellFormed(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(1)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=WellFormed(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=WellFormed(!1_0: Eq<!1_0>), binders=[]}
+          push_binders{binders=for<type, type> []}
+            0ms DEBUG value=[]
+            0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+        1ms DEBUG clauses=[for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)]
+      1ms  INFO program clause = for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)
+      resolvent_clause{db=ChalkDatabase { }, goal=WellFormed(!1_0: Eq<!1_0>), clause=for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>)}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+        2340ms DEBUG created new variable, var=?0, ui=U1
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+        3780ms DEBUG created new variable, var=?1, ui=U1
+        3780ms DEBUG consequence=WellFormed(?0: Eq<?1>), conditions=(Implemented(?0: Eq<?1>)), constraints=[]
+        relate{variance=Invariant, a=WellFormed(!1_0: Eq<!1_0>), b=WellFormed(?0: Eq<?1>)}
+          relate{variance=Invariant, a=WellFormed(!1_0: Eq<!1_0>), b=WellFormed(?0: Eq<?1>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            1ms DEBUG zip_tys Invariant, !1_0, ?1
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+              relate_var_ty{var=?1, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?1 generalized to !1_0
+                0ms DEBUG var ?1 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+      3785ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+        fold_inference_ty{var=?0, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+        fold_inference_ty{var=?1, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+  3787ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  3787ms DEBUG created new universe: U1
+  3787ms DEBUG created new universe: U1
+  3787ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: Implemented(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: Implemented(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: Implemented(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(2)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=Implemented(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=Implemented(!1_0: Eq<!1_0>), binders=[]}
+          push_binders{binders=for<type, type> []}
+            0ms DEBUG value=[]
+            0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+            0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+          push_binders{binders=for<type> (^0.0 as Eq<^0.0>, [])}
+            0ms DEBUG value=(^0.0 as Eq<^0.0>, [])
+            0ms DEBUG pushed clause Some(for<type> Implemented(^0.0: Eq<^0.0>))
+        2ms DEBUG clauses=[for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>), for<type> Implemented(^0.0: Eq<^0.0>)]
+      2ms  INFO program clause = for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)
+      resolvent_clause{db=ChalkDatabase { }, goal=Implemented(!1_0: Eq<!1_0>), clause=for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+        1279ms DEBUG created new variable, var=?0, ui=U1
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+        2223ms DEBUG created new variable, var=?1, ui=U1
+        2223ms DEBUG consequence=Implemented(?0: Eq<?1>), conditions=(FromEnv(?0: Eq<?1>)), constraints=[]
+        relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?1>)}
+          relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?1>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            1ms DEBUG zip_tys Invariant, !1_0, ?1
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?1}
+              relate_var_ty{var=?1, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?1 generalized to !1_0
+                0ms DEBUG var ?1 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+      2229ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(?0: Eq<?1>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+        fold_inference_ty{var=?0, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+        fold_inference_ty{var=?1, kind=General, outer_binder=^0}
+          0ms DEBUG bound to !1_0
+      2230ms  INFO program clause = for<type> Implemented(^0.0: Eq<^0.0>)
+      resolvent_clause{db=ChalkDatabase { }, goal=Implemented(!1_0: Eq<!1_0>), clause=for<type> Implemented(^0.0: Eq<^0.0>)}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c419c0, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+        1619ms DEBUG created new variable, var=?0, ui=U1
+        1619ms DEBUG consequence=Implemented(?0: Eq<?0>), conditions=(), constraints=[]
+        relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?0>)}
+          relate{variance=Invariant, a=Implemented(!1_0: Eq<!1_0>), b=Implemented(?0: Eq<?0>)}
+            0ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=?0}
+              relate_var_ty{var=?0, ty=!1_0}
+                0ms DEBUG relate_var_ty: universe index of var: U1
+                0ms DEBUG trying fold_with on !1_0
+                0ms DEBUG just generalizing to the ty itself: !1_0
+                0ms DEBUG var ?0 generalized to !1_0
+                0ms DEBUG var ?0 set to !1_0
+                relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+                0ms DEBUG generalized var !1_0 related to !1_0
+            1ms DEBUG zip_tys Invariant, !1_0, ?0
+            relate_ty_ty{variance=Invariant, a=!1_0, b=!1_0}
+      3851ms  INFO pushing initial strand with ex-clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }
+      canonicalize{message=ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      }}
+  7640ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  7640ms DEBUG created new universe: U1
+  7640ms DEBUG created new universe: U1
+  7641ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: FromEnv(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  get_or_create_table_for_subgoal{subgoal=Positive(InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) })}
+    canonicalize{message=InEnvironment {
+        environment: Env([]),
+        goal: FromEnv(!1_0: Eq<!1_0>),
+    }}
+    u_canonicalize{message=Canonical {
+        value: InEnvironment {
+            environment: Env([]),
+            goal: FromEnv(!1_0: Eq<!1_0>),
+        },
+        binders: [],
+    }}
+    0ms DEBUG ucanonical_subgoal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, universe_map=UniverseMap { universes: [U0, U1] }
+    get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }}
+      0ms  INFO creating new table with goal = UCanonical {
+          canonical: Canonical {
+              value: InEnvironment {
+                  environment: Env([]),
+                  goal: FromEnv(!1_0: Eq<!1_0>),
+              },
+              binders: [],
+          },
+          universes: 2,
+      }, table=TableIndex(3)
+      0ms DEBUG created new universe: U1
+      program_clauses_for_goal{environment=Env([]), goal=FromEnv(!1_0: Eq<!1_0>), binders=[]}
+        program_clauses_that_could_match{goal=FromEnv(!1_0: Eq<!1_0>), binders=[]}
+        0ms DEBUG clauses=[]
+  7643ms DEBUG table selection TableIndex(3) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(3), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: FromEnv(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  7643ms DEBUG no more strands available (or all cycles) for TableIndex(3)
+  7643ms DEBUG no more strands available
+  7643ms DEBUG discarding strand because positive literal
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: Implemented(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+  canonicalize{message=ExClause {
+      subst: [],
+      ambiguous: false,
+      constraints: [],
+      subgoals: [
+          Positive(
+              InEnvironment {
+                  environment: Env([]),
+                  goal: WellFormed(!1_0: Eq<!1_0>),
+              },
+          ),
+      ],
+      delayed_subgoals: [],
+      answer_time: TimeStamp {
+          clock: 0,
+      },
+      floundered_subgoals: [],
+  }}
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(1),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  0ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  0ms DEBUG created new universe: U1
+  0ms DEBUG created new universe: U1
+  1ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(2),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  1ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  1ms DEBUG created new universe: U1
+  1ms DEBUG created new universe: U1
+  1ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  1ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  2ms DEBUG found answer, table=TableIndex(2), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  2ms DEBUG answer is available
+  2ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: Implemented(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(2),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  3ms DEBUG table selection TableIndex(2) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(2), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  3ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+  map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+  apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+    0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: Implemented(!1_0: Eq<!1_0>) }
+  4ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+  4ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 1,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  4ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  4ms DEBUG found answer, table=TableIndex(1), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  5ms DEBUG answer is available
+  5ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [
+              Positive(
+                  InEnvironment {
+                      environment: Env([]),
+                      goal: WellFormed(!1_0: Eq<!1_0>),
+                  },
+              ),
+          ],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 0,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: Some(
+          SelectedSubgoal {
+              subgoal_index: 0,
+              subgoal_table: TableIndex(1),
+              answer_index: AnswerIndex(0),
+              universe_map: UniverseMap {
+                  universes: [
+                      U0,
+                      U1,
+                  ],
+              },
+          },
+      ),
+  }
+  5ms DEBUG table selection TableIndex(1) with goal: UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }, subgoal_table=TableIndex(1), goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes: 2 }
+  6ms  INFO answer cached = Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  map_from_canonical{canonical_value=Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, universes=[U0, U1]}
+  map_from_canonical{canonical_value=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, universes=[U0, U1]}
+  apply_answer_subst{unification_database=ChalkDatabase { }, ex_clause=ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 0 }, floundered_subgoals: [] }, selected_goal=InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, answer_table_goal=Canonical { value: InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }, binders: [] }, canonical_answer_subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }}
+    0ms DEBUG selected_goal=InEnvironment { environment: Env([]), goal: WellFormed(!1_0: Eq<!1_0>) }
+  7ms DEBUG merged answer into current strand, strand=Strand { ex_clause: ExClause { subst: [], ambiguous: false, constraints: [], subgoals: [], delayed_subgoals: [], answer_time: TimeStamp { clock: 1 }, floundered_subgoals: [] }, selected_subgoal: None }
+  7ms DEBUG starting next strand = Strand {
+      ex_clause: ExClause {
+          subst: [],
+          ambiguous: false,
+          constraints: [],
+          subgoals: [],
+          delayed_subgoals: [],
+          answer_time: TimeStamp {
+              clock: 1,
+          },
+          floundered_subgoals: [],
+      },
+      selected_subgoal: None,
+  }
+  7ms DEBUG no remaining subgoals for the table
+  canonicalize{message=AnswerSubst {
+      subst: [],
+      constraints: [],
+      delayed_subgoals: [],
+  }}
+  7ms DEBUG found answer, table=TableIndex(0), subst=Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, floundered=false
+  push_answer{answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }}
+    0ms DEBUG pre-existing entry: None
+    0ms  INFO new answer to table, goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } } }, binders: [] }, universes: 1 }, answer=Answer { subst: Canonical { value: AnswerSubst { subst: [], constraints: [], delayed_subgoals: [] }, binders: [] }, ambiguous: false }
+  7ms DEBUG answer is available
+DEBUG answer=CompleteAnswer { subst: Canonical { value: ConstrainedSubst { subst: [], constraints: [] }, binders: [] }, ambiguous: false }
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(1)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: ForAll<type> { if ([]) { WellFormed(^0.0: Eq<^0.0>) } },
+          },
+          binders: [],
+      },
+      universes: 1,
+  }
+  0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+  0ms DEBUG no more strands available
+  0ms DEBUG no more solutions
+DEBUG created new universe: U1
+DEBUG created new universe: U2
+canonicalize{message=InEnvironment {
+    environment: Env([]),
+    goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+}}
+u_canonicalize{message=Canonical {
+    value: InEnvironment {
+        environment: Env([]),
+        goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+    },
+    binders: [],
+}}
+get_or_create_table_for_ucanonical_goal{goal=UCanonical { canonical: Canonical { value: InEnvironment { environment: Env([]), goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>) }, binders: [] }, universes: 3 }}
+  0ms  INFO creating new table with goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+          },
+          binders: [],
+      },
+      universes: 3,
+  }, table=TableIndex(0)
+  0ms DEBUG created new universe: U1
+  0ms DEBUG created new universe: U2
+  program_clauses_for_goal{environment=Env([]), goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), binders=[]}
+    program_clauses_that_could_match{goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), binders=[]}
+      push_binders{binders=for<type, type> []}
+        0ms DEBUG value=[]
+        0ms DEBUG pushed clause Some(for<type, type> WellFormed(^0.0: Eq<^0.1>) :- Implemented(^0.0: Eq<^0.1>))
+        0ms DEBUG pushed clause Some(for<type, type> LocalImplAllowed(^0.0: Eq<^0.1>))
+        0ms DEBUG pushed clause Some(for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>))
+      push_binders{binders=for<type> (^0.0 as Eq<^0.0>, [])}
+        0ms DEBUG value=(^0.0 as Eq<^0.0>, [])
+        0ms DEBUG pushed clause Some(for<type> Implemented(^0.0: Eq<^0.0>))
+      push_binders{binders=for<> dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+        0ms DEBUG value=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+        push_binders{binders=for<> Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo)}
+          0ms DEBUG value=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo)
+          push_binders{binders=for<> dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0 as Foo}
+            0ms DEBUG value=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0 as Foo
+            0ms DEBUG pushed clause Some(for<> Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Foo))
+    1ms DEBUG clauses=[for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>), for<type> Implemented(^0.0: Eq<^0.0>)]
+  2ms  INFO program clause = for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)
+  resolvent_clause{db=ChalkDatabase { }, goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), clause=for<type, type> Implemented(^0.0: Eq<^0.1>) :- FromEnv(^0.0: Eq<^0.1>)}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+    2899ms DEBUG created new variable, var=?0, ui=U2
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+    3947ms DEBUG created new variable, var=?1, ui=U2
+    3947ms DEBUG consequence=Implemented(?0: Eq<?1>), conditions=(FromEnv(?0: Eq<?1>)), constraints=[]
+    relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?1>)}
+      relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?1>)}
+        0ms DEBUG zip_tys Invariant, dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, ?0
+        relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, b=?0}
+          relate_var_ty{var=?0, ty=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+            0ms DEBUG relate_var_ty: universe index of var: U2
+            0ms DEBUG trying fold_with on dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+            fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+              fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+            2886ms DEBUG created new variable, var=?2, ui=U2
+            generalize_substitution{substitution=[?0 := ^1.0], universe_index=U2}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+              7143ms DEBUG created new variable, var=?3, ui=U2
+            10030ms DEBUG var ?0 generalized to dyn for<type> [for<> Implemented(?3: Foo)] + '?2
+            10030ms DEBUG var ?0 set to dyn for<type> [for<> Implemented(?3: Foo)] + '?2
+            relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(?3: Foo)] + '?2, b=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+              relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?3: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?3: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                  0ms DEBUG created new universe: U3
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb) backtrace
+#0  chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+#1  0x00005555559779c2 in chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}}::{{closure}} () at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/instantiate.rs:21
+#2  0x000055555593a3e4 in chalk_ir::WithKind<I,T>::map_ref (self=0x7ffff0711590, op=...) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:1438
+#3  0x0000555555977940 in chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst::{{closure}} (kind=0x7ffff0711590)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/instantiate.rs:21
+#4  0x0000555555978413 in core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &mut F>::call_once (self=0x7ffff7c3f130, args=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs:280
+#5  0x0000555555babdba in core::option::Option<T>::map (self=..., f=0x7ffff7c3f130) at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:437
+#6  0x0000555555c8c1c8 in <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::next (self=0x7ffff7c3f120)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs:844
+#7  0x0000555555c8d44f in <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::next (self=0x7ffff7c3f120)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs:844
+#8  0x0000555555b83b83 in <chalk_ir::cast::Casted<IT,U> as core::iter::traits::iterator::Iterator>::next (self=0x7ffff7c3f118) at /home/daboross/proj/rust/chalk/chalk-ir/src/cast.rs:366
+#9  0x0000555555b7efcd in core::iter::traits::iterator::Iterator::try_fold (self=0x7ffff7c3f118, init=(), f=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:1870
+#10 0x0000555555c32f8f in <core::iter::adapters::ResultShunt<I,E> as core::iter::traits::iterator::Iterator>::try_fold (self=0x7ffff7c3f118, init=(), f=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs:2639
+#11 0x0000555555c4bc51 in core::iter::traits::iterator::Iterator::find (self=0x7ffff7c3f118, predicate=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:2212
+#12 0x0000555555c2c296 in <core::iter::adapters::ResultShunt<I,E> as core::iter::traits::iterator::Iterator>::next (self=0x7ffff7c3f118)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs:2621
+#13 0x0000555555e33842 in <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (iterator=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec.rs:2116
+#14 0x0000555555e3fc6c in <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (iter=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec.rs:2018
+#15 0x0000555555c526fb in core::iter::traits::iterator::Iterator::collect (self=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:1653
+#16 0x0000555555c09711 in <core::result::Result<V,E> as core::iter::traits::collect::FromIterator<core::result::Result<A,E>>>::from_iter::{{closure}} (i=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1490
+#17 0x0000555555c5e848 in core::iter::adapters::process_results (iter=..., f=...) at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs:2610
+#18 0x0000555555c06f8e in <core::result::Result<V,E> as core::iter::traits::collect::FromIterator<core::result::Result<A,E>>>::from_iter (iter=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1490
+#19 0x0000555555b6dac9 in core::iter::traits::iterator::Iterator::collect (self=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:1653
+#20 0x0000555555b5d239 in <chalk_integration::interner::ChalkIr as chalk_ir::interner::Interner>::intern_substitution (self=0x555556738248, data=...) at chalk-integration/src/interner.rs:276
+#21 0x0000555555935a05 in chalk_ir::Substitution<I>::from_fallible (interner=0x555556738248, elements=...) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:2766
+#22 0x0000555555937a84 in chalk_ir::Substitution<I>::from_iter (interner=0x555556738248, elements=...) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:2780
+#23 0x0000555555bc765b in chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::fresh_subst (self=0x7ffff7c46a80, interner=0x555556738248, binders=...)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/instantiate.rs:18
+#24 0x0000555555bc7bf0 in chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_in (self=0x7ffff7c46a80, interner=0x555556738248, universe=..., binders=..., arg=0x7ffff7c3f988)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/instantiate.rs:56
+#25 0x0000555555bca8dc in chalk_solve::infer::instantiate::<impl chalk_solve::infer::InferenceTable<I>>::instantiate_binders_existentially (self=0x7ffff7c46a80, interner=0x555556738248, arg=0x7ffff0788758)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/instantiate.rs:72
+--Type <RET> for more, q to quit, c to continue without paging--
+#26 0x0000555555d2331e in chalk_solve::infer::unify::Unifier<I>::relate_binders (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff074b308, b=0x7ffff0788758)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:273
+#27 0x0000555555d36012 in <chalk_solve::infer::unify::Unifier<I> as chalk_ir::zip::Zipper<I>>::zip_binders (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff074b308, b=0x7ffff0788758)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:789
+#28 0x0000555555911252 in <chalk_ir::Binders<T> as chalk_ir::zip::Zip<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff074b308, b=0x7ffff0788758)
+    at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:293
+#29 0x000055555590fe37 in <chalk_ir::DynTy<I> as chalk_ir::zip::Zip<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff074b308, b=0x7ffff0788758)
+    at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:652
+#30 0x0000555555d1b911 in chalk_solve::infer::unify::Unifier<I>::relate_ty_ty (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff7c41e40, b=0x7ffff7c41e10)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:190
+#31 0x0000555555d1f315 in chalk_solve::infer::unify::Unifier<I>::relate_var_ty (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, var=..., ty=0x7ffff7c436f8)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:540
+#32 0x0000555555d1adb6 in chalk_solve::infer::unify::Unifier<I>::relate_ty_ty (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff079a098, b=0x7ffff0716818)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:147
+#33 0x0000555555d367dd in <chalk_solve::infer::unify::Unifier<I> as chalk_ir::zip::Zipper<I>>::zip_tys (self=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff079a098, b=0x7ffff0716818)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:758
+#34 0x000055555590d4a2 in <chalk_ir::Ty<I> as chalk_ir::zip::Zip<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff079a098, b=0x7ffff0716818)
+    at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:250
+#35 0x000055555594fcb0 in chalk_ir::_DERIVE_chalk_ir_zip_Zip_I_FOR_GenericArgData::<impl chalk_ir::zip::Zip<I> for chalk_ir::GenericArgData<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant,
+    a=0x7ffff079a090, b=0x7ffff0716810) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:1368
+#36 0x0000555555913c1f in <chalk_ir::GenericArg<I> as chalk_ir::zip::Zip<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff079a090, b=0x7ffff0716810)
+    at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:485
+#37 0x0000555555d350ac in chalk_ir::zip::Zipper::zip_substs (self=0x7ffff7c45100, ambient=chalk_ir::Variance::Invariant, variances=..., a=..., b=...) at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:65
+#38 0x00005555559136ca in <chalk_ir::TraitRef<I> as chalk_ir::zip::Zip<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant, a=0x7ffff0788a78, b=0x7ffff7c457f0)
+    at /home/daboross/proj/rust/chalk/chalk-ir/src/zip.rs:516
+#39 0x0000555555948a7e in chalk_ir::_DERIVE_chalk_ir_zip_Zip_I_FOR_WhereClause::<impl chalk_ir::zip::Zip<I> for chalk_ir::WhereClause<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant,
+    a=0x7ffff0788a70, b=0x7ffff7c457e8) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:1575
+#40 0x0000555555945690 in chalk_ir::_DERIVE_chalk_ir_zip_Zip_I_FOR_DomainGoal::<impl chalk_ir::zip::Zip<I> for chalk_ir::DomainGoal<I>>::zip_with (zipper=0x7ffff7c45100, variance=chalk_ir::Variance::Invariant,
+    a=0x7ffff0788a68, b=0x7ffff7c457e0) at /home/daboross/proj/rust/chalk/chalk-ir/src/lib.rs:1673
+#41 0x0000555555d334a2 in chalk_solve::infer::unify::Unifier<I>::relate (self=..., variance=chalk_ir::Variance::Invariant, a=0x7ffff0788a68, b=0x7ffff7c457e0)
+    at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:78
+#42 0x0000555555bd5a04 in chalk_solve::infer::unify::<impl chalk_solve::infer::InferenceTable<I>>::relate (self=0x7ffff7c46a80, interner=0x555556738248, db=..., environment=0x7ffff7c46520,
+    variance=chalk_ir::Variance::Invariant, a=0x7ffff0788a68, b=0x7ffff7c457e0) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer/unify.rs:28
+#43 0x0000555555d99114 in chalk_engine::slg::resolvent::<impl chalk_engine::context::ResolventOps<I,chalk_engine::slg::SlgContext<I>> for chalk_engine::slg::TruncatingInferenceTable<I>>::resolvent_clause (
+    self=0x7ffff7c46a78, db=..., interner=0x555556738248, environment=0x7ffff7c46520, goal=0x7ffff0788a68, subst=0x7ffff7c46500, clause=0x7ffff7c468b8)
+    at /home/daboross/proj/rust/chalk/chalk-engine/src/slg/resolvent.rs:91
+#44 0x0000555555d69f53 in chalk_engine::logic::<impl chalk_engine::forest::Forest<I,C>>::build_table (context=0x7ffff7c48d00, table_idx=..., goal=...) at /home/daboross/proj/rust/chalk/chalk-engine/src/logic.rs:260
+#45 0x0000555555d7062d in chalk_engine::logic::<impl chalk_engine::forest::Forest<I,C>>::get_or_create_table_for_ucanonical_goal (self=0x7ffff07a5820, context=0x7ffff7c48d00, goal=...)
+    at /home/daboross/proj/rust/chalk/chalk-engine/src/logic.rs:229
+#46 0x0000555555d707e6 in chalk_engine::forest::Forest<I,C>::iter_answers (self=0x7ffff07a5820, context=0x7ffff7c48d00, goal=0x7ffff7c49098) at /home/daboross/proj/rust/chalk/chalk-engine/src/forest.rs:46
+#47 0x0000555555c23f9e in <chalk_engine::solve::SLGSolver<I> as chalk_solve::solve::Solver<I>>::solve (self=0x7ffff07a5820, program=..., goal=0x7ffff7c49098)
+    at /home/daboross/proj/rust/chalk/chalk-engine/src/solve.rs:40
+#48 0x0000555555b68581 in chalk_integration::db::ChalkDatabase::solve (self=0x7ffff7c496a8, goal=0x7ffff7c49098) at chalk-integration/src/db.rs:54
+--Type <RET> for more, q to quit, c to continue without paging--
+#49 0x000055555570e74b in lib::test::solve_goal::{{closure}}::{{closure}} () at tests/test/mod.rs:266
+#50 0x00005555558018ae in chalk_integration::tls::set_current_program::{{closure}} (prog_cell=0x7ffff7c4b568) at /home/daboross/proj/rust/chalk/chalk-integration/src/tls.rs:166
+#51 0x00005555557ca6d2 in std::thread::local::LocalKey<T>::try_with (self=0x555556b49e50, f=...)
+    at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/thread/local.rs:265
+#52 0x00005555557c9ded in std::thread::local::LocalKey<T>::with (self=0x555556b49e50, f=...) at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/thread/local.rs:241
+#53 0x00005555558009db in chalk_integration::tls::set_current_program (p=0x7ffff7c49718, op=...) at /home/daboross/proj/rust/chalk/chalk-integration/src/tls.rs:164
+#54 0x000055555570f32f in lib::test::solve_goal::{{closure}} () at tests/test/mod.rs:252
+#55 0x000055555573ed2b in tracing_core::dispatcher::with_default (dispatcher=0x7ffff7c49ac8, f=...) at /home/daboross/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-core-0.1.14/src/dispatcher.rs:230
+#56 0x00005555557b4f35 in tracing::subscriber::with_default (subscriber=..., f=...) at /home/daboross/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.19/src/subscriber.rs:24
+#57 0x000055555577f04c in chalk_solve::logging::with_tracing_logs (action=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/logging.rs:11
+#58 0x000055555576b89d in lib::test::solve_goal (program_text=..., goals=..., coherence=true) at tests/test/mod.rs:223
+#59 0x00005555556d8876 in lib::test::existential_types::dyn_lifetime_bound () at tests/test/existential_types.rs:379
+#60 0x0000555555730dfa in lib::test::existential_types::dyn_lifetime_bound::{{closure}} () at tests/test/existential_types.rs:378
+#61 0x00005555556e4f0e in core::ops::function::FnOnce::call_once () at /home/daboross/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs:227
+#62 0x0000555555860673 in core::ops::function::FnOnce::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/core/src/ops/function.rs:227
+#63 test::__rust_begin_short_backtrace () at library/test/src/lib.rs:517
+#64 0x000055555585ebc3 in <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/alloc/src/boxed.rs:1042
+#65 <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panic.rs:308
+#66 std::panicking::try::do_call () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panicking.rs:381
+#67 std::panicking::try () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panicking.rs:345
+#68 std::panic::catch_unwind () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panic.rs:382
+#69 test::run_test_in_process () at library/test/src/lib.rs:544
+#70 test::run_test::run_test_inner::{{closure}} () at library/test/src/lib.rs:450
+#71 0x0000555555837276 in std::sys_common::backtrace::__rust_begin_short_backtrace () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/sys_common/backtrace.rs:137
+#72 0x000055555583c4a5 in std::thread::Builder::spawn_unchecked::{{closure}}::{{closure}} () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/thread/mod.rs:458
+#73 <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panic.rs:308
+#74 std::panicking::try::do_call () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panicking.rs:381
+#75 std::panicking::try () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panicking.rs:345
+#76 std::panic::catch_unwind () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/panic.rs:382
+#77 std::thread::Builder::spawn_unchecked::{{closure}} () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/std/src/thread/mod.rs:457
+#78 core::ops::function::FnOnce::call_once{{vtable-shim}} () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/core/src/ops/function.rs:227
+#79 0x00005555566e4a2a in <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/alloc/src/boxed.rs:1042
+#80 <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once () at /rustc/d006f5734f49625c34d6fc33bf6b9967243abca8/library/alloc/src/boxed.rs:1042
+#81 std::sys::unix::thread::Thread::new::thread_start () at library/std/src/sys/unix/thread.rs:87
+#82 0x00007ffff7f82432 in start_thread () from /lib64/libpthread.so.0
+#83 0x00007ffff7e95913 in clone () from /lib64/libc.so.6
+(gdb) continue
+Continuing.
+                  7510ms DEBUG created new variable, var=?4, ui=U3
+                  relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(?4: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(?4: Foo)}
+                      0ms DEBUG created new universe: U4
+                      0ms DEBUG zip_tys Invariant, ?3, ?4
+                      relate_ty_ty{variance=Invariant, a=?3, b=?4}
+                        unify_var_var{a=?3, b=?4}
+                          unify_var_var{a=?3, b=?4}
+                      1ms DEBUG created new universe: U5
+                      1ms DEBUG zip_tys Invariant, ?3, ?4
+                      relate_ty_ty{variance=Invariant, a=?3, b=?4}
+                        unify_var_var{a=?3, b=?4}
+                          unify_var_var{a=?3, b=?4}
+                  7512ms DEBUG created new universe: U6
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb) qucontinue
+Continuing.
+                  14742ms DEBUG created new variable, var=?5, ui=U6
+                  relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(!6_0: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?3: Foo), b=for<> Implemented(!6_0: Foo)}
+                      0ms DEBUG created new universe: U7
+                      0ms DEBUG zip_tys Invariant, ?3, !6_0
+                      relate_ty_ty{variance=Invariant, a=?3, b=!6_0}
+                        relate_var_ty{var=?3, ty=!6_0}
+                          0ms DEBUG relate_var_ty: universe index of var: U2
+                          0ms DEBUG trying fold_with on !6_0
+                          0ms DEBUG OccursCheck aborting because self.universe_index (U2) < universe.ui (U6)
+                          0ms DEBUG failed to fold !6_0
+            24774ms DEBUG relate_ty_ty failed (no solution)
+  28725ms  INFO program clause = for<type> Implemented(^0.0: Eq<^0.0>)
+  resolvent_clause{db=ChalkDatabase { }, goal=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), clause=for<type> Implemented(^0.0: Eq<^0.0>)}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb) q
+Continuing.
+    1421ms DEBUG created new variable, var=?0, ui=U2
+    1421ms DEBUG consequence=Implemented(?0: Eq<?0>), conditions=(), constraints=[]
+    relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?0>)}
+      relate{variance=Invariant, a=Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>), b=Implemented(?0: Eq<?0>)}
+        0ms DEBUG zip_tys Invariant, dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, ?0
+        relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0, b=?0}
+          relate_var_ty{var=?0, ty=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+            0ms DEBUG relate_var_ty: universe index of var: U2
+            0ms DEBUG trying fold_with on dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0
+            fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+              fold_free_placeholder_lifetime{ui=!1_0, _outer_binder=^0}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+            583ms DEBUG created new variable, var=?1, ui=U2
+            generalize_substitution{substitution=[?0 := ^1.0], universe_index=U2}
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+              423ms DEBUG created new variable, var=?2, ui=U2
+            1007ms DEBUG var ?0 generalized to dyn for<type> [for<> Implemented(?2: Foo)] + '?1
+            1007ms DEBUG var ?0 set to dyn for<type> [for<> Implemented(?2: Foo)] + '?1
+            relate_ty_ty{variance=Invariant, a=dyn for<type> [for<> Implemented(?2: Foo)] + '?1, b=dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0}
+              relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?2: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                relate_binders{variance=Invariant, a=for<type> [for<> Implemented(?2: Foo)], b=for<type> [for<> Implemented(^1.0: Foo)]}
+                  0ms DEBUG created new universe: U3
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+                  343ms DEBUG created new variable, var=?3, ui=U3
+                  relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(?3: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(?3: Foo)}
+                      0ms DEBUG created new universe: U4
+                      0ms DEBUG zip_tys Invariant, ?2, ?3
+                      relate_ty_ty{variance=Invariant, a=?2, b=?3}
+                        unify_var_var{a=?2, b=?3}
+                          unify_var_var{a=?2, b=?3}
+                      0ms DEBUG created new universe: U5
+                      0ms DEBUG zip_tys Invariant, ?2, ?3
+                      relate_ty_ty{variance=Invariant, a=?2, b=?3}
+                        unify_var_var{a=?2, b=?3}
+                          unify_var_var{a=?2, b=?3}
+                  344ms DEBUG created new universe: U6
+
+Thread 2 "test::existenti" hit Breakpoint 1, chalk_solve::infer::InferenceTable<I>::new_variable (self=0x7ffff7c46a80, ui=...) at /home/daboross/proj/rust/chalk/chalk-solve/src/infer.rs:86
+86	        let var = self.unify.new_key(InferenceValue::Unbound(ui));
+(gdb)
+Continuing.
+                  694ms DEBUG created new variable, var=?4, ui=U6
+                  relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(!6_0: Foo)}
+                    relate_binders{variance=Invariant, a=for<> Implemented(?2: Foo), b=for<> Implemented(!6_0: Foo)}
+                      0ms DEBUG created new universe: U7
+                      0ms DEBUG zip_tys Invariant, ?2, !6_0
+                      relate_ty_ty{variance=Invariant, a=?2, b=!6_0}
+                        relate_var_ty{var=?2, ty=!6_0}
+                          0ms DEBUG relate_var_ty: universe index of var: U2
+                          0ms DEBUG trying fold_with on !6_0
+                          0ms DEBUG OccursCheck aborting because self.universe_index (U2) < universe.ui (U6)
+                          0ms DEBUG failed to fold !6_0
+            1704ms DEBUG relate_ty_ty failed (no solution)
+ensure_root_answer{initial_table=TableIndex(0), initial_answer=AnswerIndex(0)}
+  0ms  INFO table goal = UCanonical {
+      canonical: Canonical {
+          value: InEnvironment {
+              environment: Env([]),
+              goal: Implemented(dyn for<type> [for<> Implemented(^1.0: Foo)] + '!1_0: Eq<dyn for<type> [for<> Implemented(^1.0: Foo)] + '!2_0>),
+          },
+          binders: [],
+      },
+      universes: 3,
+  }
+  0ms DEBUG no more strands available (or all cycles) for TableIndex(0)
+  0ms DEBUG no more strands available
+  0ms DEBUG no more solutions
+test test::existential_types::dyn_lifetime_bound ... FAILED(B
+
+failures:
+
+---- test::existential_types::dyn_lifetime_bound stdout ----
+program { trait Foo { } trait Eq < A > { } impl < A > Eq < A > for A { } }
+----------------------------------------------------------------------
+goal { forall < 'a > { forall < 'b > { dyn Foo + 'a : Eq < dyn Foo + 'b > } } }
+using solver: SLG { max_size: 10, expected_answers: None }
+expected:
+Unique; substitution [], lifetime constraints [InEnvironment { environment: Env([]), goal: '!1_0: '!2_0 }, InEnvironment { environment: Env([]), goal: '!2_0: '!1_0 }]
+actual:
+No possible solution
+thread 'test::existential_types::dyn_lifetime_bound' panicked at 'assertion failed: `(left == right)`
+
+Diff < left / right > :
+<"Unique;substitution[],lifetimeconstraints[InEnvironment{environment:Env([]),goal:\'!1_0:\'!2_0},InEnvironment{environment:Env([]),goal:\'!2_0:\'!1_0}]"
+>"Nopossiblesolution"
+
+', tests/test_util.rs:52:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test::existential_types::dyn_lifetime_bound
+
+test result: FAILED(B. 0 passed; 1 failed; 0 ignored; 0 measured; 435 filtered out
+
+[Thread 0x7ffff7c4b700 (LWP 47001) exited]
+[Inferior 1 (process 46997) exited with code 0145]
+(gdb) quit
+%
+
+
+████████████████████████:~chalk/
+$ eexit
+
+
+Script done on 2020-09-26 22:53:21-07:00 [COMMAND_EXIT_CODE="0"]
