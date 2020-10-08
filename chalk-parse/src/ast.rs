@@ -37,6 +37,7 @@ pub struct AdtDefn {
     pub variants: Vec<Variant>,
     pub flags: AdtFlags,
     pub repr: AdtRepr,
+    pub variances: Option<Vec<Variance>>,
 }
 
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -76,6 +77,7 @@ pub struct FnDefn {
     pub abi: FnAbi,
     pub safety: Safety,
     pub variadic: bool,
+    pub variances: Option<Vec<Variance>>,
 }
 
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -515,4 +517,11 @@ impl FnArgs {
             None => FnArgs::NonVariadic(tys),
         })
     }
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+pub enum Variance {
+    Invariant,
+    Covariant,
+    Contravariant,
 }

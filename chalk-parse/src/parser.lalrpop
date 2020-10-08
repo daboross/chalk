@@ -62,7 +62,7 @@ WellKnownTrait: WellKnownTrait = {
 AdtRepr: Atom = "#" "[" "repr" "(" <name:Id> ")" "]" => name.str;
 
 AdtDefn: AdtDefn = {
-    <upstream:UpstreamKeyword?> <fundamental:FundamentalKeyword?> <phantom_data:PhantomDataKeyword?> <repr:AdtRepr*>
+    <variances:Variances?> <upstream:UpstreamKeyword?> <fundamental:FundamentalKeyword?> <phantom_data:PhantomDataKeyword?> <repr:AdtRepr*>
         "enum" <n:Id><p:Angle<VariableKind>>
         <w:QuantifiedWhereClauses> "{" <v:Variants> "}" => AdtDefn
     {
@@ -80,8 +80,9 @@ AdtDefn: AdtDefn = {
             repr_c: repr.iter().any(|s| s == "C"),
             repr_packed: repr.iter().any(|s| s == "packed"),
         },
+        variances,
     },
-    <upstream:UpstreamKeyword?> <fundamental:FundamentalKeyword?> <phantom_data:PhantomDataKeyword?> <repr:AdtRepr*>
+    <variances:Variances?> <upstream:UpstreamKeyword?> <fundamental:FundamentalKeyword?> <phantom_data:PhantomDataKeyword?> <repr:AdtRepr*>
         "struct" <n:Id><p:Angle<VariableKind>>
         <w:QuantifiedWhereClauses> "{" <f:Fields> "}" => AdtDefn
     {
@@ -106,6 +107,7 @@ AdtDefn: AdtDefn = {
             repr_c: repr.iter().any(|s| s == "C"),
             repr_packed: repr.iter().any(|s| s == "packed"),
         },
+        variances,
     }
 };
 
@@ -140,7 +142,7 @@ FnReturn: Ty = {
 };
 
 FnDefn: FnDefn = {
-    <safety:Safety?> <abi:FnAbi?> "fn" <n:Id> <p:Angle<VariableKind>>"(" <args:FnArgs> ")"
+    <variances:Variances?> <safety:Safety?> <abi:FnAbi?> "fn" <n:Id> <p:Angle<VariableKind>>"(" <args:FnArgs> ")"
         <ret_ty:FnReturn?> <w:QuantifiedWhereClauses> ";" => FnDefn
     {
         name: n,
@@ -151,6 +153,7 @@ FnDefn: FnDefn = {
         return_type: ret_ty.unwrap_or_else(|| Ty::Tuple { types: Vec::new() }),
         abi: abi.unwrap_or_default(),
         safety: safety.unwrap_or_default(),
+        variances,
     }
 };
 
@@ -303,6 +306,14 @@ VariableKind: VariableKind = {
     "int" <id:Id> => VariableKind::IntegerTy(id),
     "float" <id:Id> => VariableKind::FloatTy(id),
 };
+
+RawVariance: Variance = {
+    "Invariant" => Variance::Invariant,
+    "Covariant" => Variance::Covariant,
+    "Contravariant" => Variance::Contravariant,
+}
+
+Variances: Vec<Variance> = "#" "[" "variance" "(" <Comma<RawVariance>> ")" "]";
 
 AssocTyValue: AssocTyValue = {
     <default:"default"?> "type" <n:Id> <a:Angle<VariableKind>> "=" <v:Ty> ";" => AssocTyValue {

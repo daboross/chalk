@@ -355,7 +355,9 @@ impl LowerProgram for Program {
         }
 
         let mut adt_ids = BTreeMap::new();
+        let mut adt_variances = BTreeMap::new();
         let mut fn_def_ids = BTreeMap::new();
+        let mut fn_def_variances = BTreeMap::new();
         let mut closure_ids = BTreeMap::new();
         let mut trait_ids = BTreeMap::new();
         let mut auto_traits = BTreeMap::new();
@@ -371,15 +373,61 @@ impl LowerProgram for Program {
         for (item, &raw_id) in self.items.iter().zip(&raw_ids) {
             match item {
                 Item::AdtDefn(defn) => {
+                    let identifier = defn.name.clone();
                     let type_kind = defn.lower_type_kind()?;
                     let id = AdtId(raw_id);
                     adt_ids.insert(type_kind.name.clone(), id);
+                    let variances = match defn.variances.clone() {
+                        Some(v) => {
+                            if v.len() != type_kind.binders.binders.len(&ChalkIr) {
+                                return Err(RustIrError::IncorrectNumberOfVarianceParameters {
+                                    identifier,
+                                    expected: type_kind.binders.binders.len(&ChalkIr),
+                                    actual: v.len(),
+                                });
+                            }
+                            v.into_iter()
+                                .map(|v| match v {
+                                    Variance::Invariant => chalk_ir::Variance::Invariant,
+                                    Variance::Covariant => chalk_ir::Variance::Covariant,
+                                    Variance::Contravariant => chalk_ir::Variance::Contravariant,
+                                })
+                                .collect()
+                        }
+                        None => (0..type_kind.binders.binders.len(&ChalkIr))
+                            .map(|_| chalk_ir::Variance::Invariant)
+                            .collect(),
+                    };
+                    adt_variances.insert(id, variances);
                     adt_kinds.insert(id, type_kind);
                 }
                 Item::FnDefn(defn) => {
+                    let identifier = defn.name.clone();
                     let type_kind = defn.lower_type_kind()?;
                     let id = FnDefId(raw_id);
                     fn_def_ids.insert(type_kind.name.clone(), id);
+                    let variances = match defn.variances.clone() {
+                        Some(v) => {
+                            if v.len() != type_kind.binders.binders.len(&ChalkIr) {
+                                return Err(RustIrError::IncorrectNumberOfVarianceParameters {
+                                    identifier,
+                                    expected: type_kind.binders.binders.len(&ChalkIr),
+                                    actual: v.len(),
+                                });
+                            }
+                            v.into_iter()
+                                .map(|v| match v {
+                                    Variance::Invariant => chalk_ir::Variance::Invariant,
+                                    Variance::Covariant => chalk_ir::Variance::Covariant,
+                                    Variance::Contravariant => chalk_ir::Variance::Contravariant,
+                                })
+                                .collect()
+                        }
+                        None => (0..type_kind.binders.binders.len(&ChalkIr))
+                            .map(|_| chalk_ir::Variance::Invariant)
+                            .collect(),
+                    };
+                    fn_def_variances.insert(id, variances);
                     fn_def_kinds.insert(id, type_kind);
                     fn_def_abis.insert(id, defn.abi.lower()?);
                 }
@@ -643,7 +691,9 @@ impl LowerProgram for Program {
 
         let program = LoweredProgram {
             adt_ids,
+            adt_variances,
             fn_def_ids,
+            fn_def_variances,
             closure_ids,
             closure_upvars,
             closure_kinds,
