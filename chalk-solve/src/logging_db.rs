@@ -53,6 +53,9 @@ where
             _phantom: PhantomData,
         }
     }
+    pub fn writer_state(&self) -> &WriterState<I, DB, P> {
+        &self.ws
+    }
 }
 
 impl<I, DB, P> Display for LoggingRustIrDatabase<I, DB, P>
