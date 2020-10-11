@@ -18,3 +18,23 @@ we call into `relate_x_x` directly as we create each new inference variable.
 This again fails, but for a different reason - relate_ty_ty doesn't work with
 BoundVars! BoundVars are those like !1.0 which refer to a variable
 introduced by a for<> or exists<> by debrujin index.
+
+
+Tasklist:
+ * Unity test - very small reproduceable issue tests
+ * Use an actual debugger to step through
+ * Compare failing logs with logs prior to our changes
+ * Read the code and understand it
+ * Undo universe index guess changes
+ * Revert to doing relate_ty_ty for the entire structure
+
+ * Clean up debug logs (so that we don't output 5 lines every time relate_var_ty
+   is called)
+ * Apply '0001-Make-DB-Sized-in-chalk-writer-top-level-funcs.patch' to the
+   goal-writer branch.
+ * Fix missing '<>' in forall with no parameters in goal writer
+Questions:
+ * What stops multiple incompatible things from being unified to the same
+   inference var?
+ * Why would or wouldn't we want to increment the universe index when we traverse
+   binders in relate_var_ty
