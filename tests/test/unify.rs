@@ -40,6 +40,58 @@ fn region_equality() {
     }
 }
 
+#[test]
+fn forall_equality_simple() {
+    test! {
+        program {
+            trait Eq<T> { }
+            impl<T> Eq<T> for T { }
+
+            struct Unit { }
+            struct Ref<'a, T> { }
+        }
+
+        goal {
+            // A valid equality; we get back a series of solvable
+            // region constraints, since each region variable must
+            // refer to exactly one placeholder region, and they are
+            // all in a valid universe to do so (universe 4).
+            for<'a> fn(Ref<'a, Unit>): Eq<for<'c> fn(Ref<'c, Unit>)>
+        } yields {
+            "Unique; substitution [], lifetime constraints []"
+        }
+    }
+}
+
+#[test]
+fn forall_equality_second_simple() {
+    test! {
+        program {
+            trait Eq<T> { }
+            impl<T> Eq<T> for T { }
+
+            struct Unit { }
+            struct Ref<'a, T> { }
+        }
+
+        goal {
+            // Note: this equality is false, but we get back successful;
+            // this is because the region constraints are unsolvable.
+            //
+            // Note that `?0` (in universe 2) must be equal to both
+            // `!1_0` and `!1_1`, which of course it cannot be.
+            for<'a, 'b> fn(Ref<'a, Ref<'b, Ref<'a, Unit>>>): Eq<
+                for<'c, 'd> fn(Ref<'c, Ref<'d, Ref<'d, Unit>>>)>
+        } yields {
+            "Unique; substitution [], lifetime constraints [\
+            InEnvironment { environment: Env([]), goal: '!1_0: '!1_1 }, \
+            InEnvironment { environment: Env([]), goal: '!1_1: '!1_0 }, \
+            InEnvironment { environment: Env([]), goal: '!2_0: '!2_1 }, \
+            InEnvironment { environment: Env([]), goal: '!2_1: '!2_0 }]"
+        }
+    }
+}
+
 /// Tests of region equality and "foralls" -- we generate contraints that are sometimes
 /// not solvable.
 #[test]
@@ -388,6 +440,53 @@ fn subtype() {
             Subtype(for<'a> fn(&'a (), &'a ()), for<'a, 'b> fn(&'a (), &'b ()))
         } yields {
             "Unique"
+        }
+    }
+}
+
+#[test]
+fn overlapping_assoc_types_extraction2() {
+    test! {
+        program {
+            struct Vec<_1_0> {}
+            trait Iterator {
+              type Item;
+            }
+            impl<_1_0> Iterator for Vec<_1_0> {
+              type Item = _1_0;
+            }
+        }
+
+        goal {
+            forall<_1_0> { if (_1_0: Iterator) { exists<_2_0, _2_1> { _1_0 = _2_1, <_1_0 as Iterator>::Item = _2_0 } } }
+        } yields[SolverChoice::recursive()] {
+            "Unique; substitution [?0 := !1_0, ?1 := (Iterator::Item)<!1_0>], lifetime constraints []"
+        } yields[SolverChoice::slg_default()] {
+            "Unique; substitution [?0 := !1_0, ?1 := (Iterator::Item)<!1_0>], lifetime constraints []"
+        }
+    }
+}
+
+#[test]
+fn overlapping_assoc_types_extraction1() {
+    test! {
+        program {
+            struct Vec<_1_0> {}
+            trait Iterator {
+              type Item;
+            }
+            impl<_1_0> Iterator for Vec<_1_0> {
+              type Item = _1_0;
+            }
+        }
+
+        goal {
+            forall<_1_0, _1_1> { if () { exists<_2_0> { _1_1 = _2_0, _1_0 = <_2_0 as Iterator>::Item, forall <>{ _2_0: Iterator } } } }
+        } yields[SolverChoice::recursive()]  {
+            "No possible solution"
+        }
+        yields[SolverChoice::slg_default()]  {
+            "No possible solution"
         }
     }
 }
