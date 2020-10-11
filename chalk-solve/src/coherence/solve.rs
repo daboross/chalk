@@ -1,8 +1,12 @@
-use crate::coherence::{CoherenceError, CoherenceSolver};
-use crate::debug_span;
 use crate::ext::*;
 use crate::rust_ir::*;
-use crate::{goal_builder::GoalBuilder, Solution};
+use crate::{
+    coherence::{CoherenceError, CoherenceSolver},
+    display::write_goal,
+    display::WriterState,
+};
+use crate::{debug_span, logging_db::LoggingRustIrDatabase};
+use crate::{goal_builder::GoalBuilder, RustIrDatabase, Solution};
 use chalk_ir::cast::*;
 use chalk_ir::fold::shift::Shift;
 use chalk_ir::interner::Interner;
@@ -36,7 +40,10 @@ impl<I: Interner> CoherenceSolver<'_, I> {
             // the other. Note that specialization can only run one way - if both
             // specialization checks return *either* true or false, that's an error.
             if !self.disjoint(lhs, rhs) {
-                match (self.specializes(l_id, r_id), self.specializes(r_id, l_id)) {
+                match (
+                    dbg!(self.specializes(l_id, r_id)),
+                    dbg!(self.specializes(r_id, l_id)),
+                ) {
                     (true, false) => record_specialization(l_id, r_id),
                     (false, true) => record_specialization(r_id, l_id),
                     (_, _) => {
@@ -248,14 +255,22 @@ impl<I: Interner> CoherenceSolver<'_, I> {
                 })
             },
         );
-
         let canonical_goal = &goal.into_closed_goal(interner);
+        let mut s = String::new();
+        let db = LoggingRustIrDatabase::<_, &dyn RustIrDatabase<_>, _>::new(&self.db);
+        write_goal(
+            &mut s,
+            db.writer_state(),
+            &canonical_goal.canonical.value.goal,
+        )
+        .unwrap();
+        debug!("specializes goal: {}", s);
         let mut fresh_solver = (self.solver_builder)();
-        let result = match fresh_solver.solve(self.db, canonical_goal) {
+        let result = match fresh_solver.solve(&db, canonical_goal) {
             Some(sol) => sol.is_unique(),
             None => false,
         };
-
+        debug!("specializes goal program: {}", db);
         debug!("specializes: result = {:?}", result);
 
         result
