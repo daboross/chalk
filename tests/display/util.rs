@@ -4,7 +4,7 @@
 //! with `display/mod.rs` for the name `mod display` when `test_util.rs` is
 //! compiled as a standalone test (rather than from `lib.rs`).
 use chalk_integration::{
-    db::ChalkDatabase, interner::ChalkIr, lowering::lower_goal, program::Program,
+    db::ChalkDatabase, interner::ChalkIr, lowering::LowerGoal, program::Program,
     query::LoweringDatabase, tls,
 };
 use chalk_ir::Goal;
@@ -66,17 +66,21 @@ pub fn reparse_goal_into_different_test<'a>(
 ) {
     let db = ChalkDatabase::with(&program_text, <_>::default());
     let program = db.program_ir().unwrap();
-    let goal = lower_goal(&chalk_parse::parse_goal(&goal_text).unwrap(), &*program).unwrap();
+    let goal = chalk_parse::parse_goal(&goal_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
 
-    let target_goal =
-        lower_goal(&chalk_parse::parse_goal(&target_text).unwrap(), &*program).unwrap();
+    let target_goal = chalk_parse::parse_goal(&target_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
 
     let output_goal_text = tls::set_current_program(&program, || write_goal(&goal, &program));
-    let output_goal = lower_goal(
-        &chalk_parse::parse_goal(&output_goal_text).unwrap(),
-        &*program,
-    )
-    .unwrap();
+    let output_goal = chalk_parse::parse_goal(&output_goal_text)
+        .unwrap()
+        .lower(&*program)
+        .unwrap();
     if output_goal != target_goal {
         panic!(
             "write_goal produced different program.\n\
