@@ -1,0 +1,95 @@
+From bddecba61f708f2dab73d4c1862aaf7ee73185d5 Mon Sep 17 00:00:00 2001
+From: Super Tuple <supertuple@gmail.com>
+Date: Sat, 10 Oct 2020 15:09:55 -0700
+Subject: [PATCH] Make DB ?Sized in chalk writer top-level funcs
+
+We don't require DB to be sized because only ever hold a reference or an
+owned reference to the DB. This allows us to pass in a
+`dyn RustIrDatabase` into top level functions like `write_items`.
+---
+ chalk-solve/src/display.rs       | 6 +++---
+ chalk-solve/src/display/state.rs | 2 +-
+ chalk-solve/src/display/stub.rs  | 8 ++++----
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/chalk-solve/src/display.rs b/chalk-solve/src/display.rs
+index bd2094c16..eadff09bb 100644
+--- a/chalk-solve/src/display.rs
++++ b/chalk-solve/src/display.rs
+@@ -51,7 +51,7 @@ pub fn write_stub_items<F, I, DB, P, T>(f: &mut F, ws: &WriterState<I, DB, P>, i
+ where
+     F: std::fmt::Write + ?Sized,
+     I: Interner,
+-    DB: RustIrDatabase<I>,
++    DB: RustIrDatabase<I> + ?Sized,
+     P: Borrow<DB>,
+     T: IntoIterator<Item = RecordedItemId<I>>,
+ {
+@@ -67,7 +67,7 @@ pub fn write_items<F, I, DB, P, T>(f: &mut F, ws: &WriterState<I, DB, P>, ids: T
+ where
+     F: std::fmt::Write + ?Sized,
+     I: Interner,
+-    DB: RustIrDatabase<I>,
++    DB: RustIrDatabase<I> + ?Sized,
+     P: Borrow<DB>,
+     T: IntoIterator<Item = RecordedItemId<I>>,
+ {
+@@ -102,7 +102,7 @@ pub fn write_goal<F, I, DB, P>(f: &mut F, ws: &WriterState<I, DB, P>, goal: &Goa
+ where
+     F: std::fmt::Write + ?Sized,
+     I: Interner,
+-    DB: RustIrDatabase<I>,
++    DB: RustIrDatabase<I> + ?Sized,
+     P: Borrow<DB>,
+ {
+     writeln!(f, "{}", goal.display(&InternalWriterState::new(ws)))
+diff --git a/chalk-solve/src/display/state.rs b/chalk-solve/src/display/state.rs
+index 3501d5916..d7a0f6aa1 100644
+--- a/chalk-solve/src/display/state.rs
++++ b/chalk-solve/src/display/state.rs
+@@ -188,7 +188,7 @@ pub(super) struct InternalWriterState<'a, I: Interner> {
+ type IndexWithinBinding = usize;
+ 
+ impl<'a, I: Interner> InternalWriterState<'a, I> {
+-    pub fn new<DB, P>(persistent_state: &'a WriterState<I, DB, P>) -> Self
++    pub fn new<DB: ?Sized, P>(persistent_state: &'a WriterState<I, DB, P>) -> Self
+     where
+         DB: RustIrDatabase<I>,
+         P: Borrow<DB>,
+diff --git a/chalk-solve/src/display/stub.rs b/chalk-solve/src/display/stub.rs
+index 3c7e930b2..9d34c6bbd 100644
+--- a/chalk-solve/src/display/stub.rs
++++ b/chalk-solve/src/display/stub.rs
+@@ -15,17 +15,17 @@ use chalk_ir::{
+ };
+ 
+ #[derive(Debug)]
+-pub struct StubWrapper<'a, DB> {
++pub struct StubWrapper<'a, DB: ?Sized> {
+     db: &'a DB,
+ }
+ 
+-impl<'a, DB> StubWrapper<'a, DB> {
++impl<'a, DB: ?Sized> StubWrapper<'a, DB> {
+     pub fn new(db: &'a DB) -> Self {
+         StubWrapper { db }
+     }
+ }
+ 
+-impl<I: Interner, DB: RustIrDatabase<I>> UnificationDatabase<I> for StubWrapper<'_, DB> {
++impl<I: Interner, DB: RustIrDatabase<I> + ?Sized> UnificationDatabase<I> for StubWrapper<'_, DB> {
+     fn fn_def_variance(&self, fn_def_id: chalk_ir::FnDefId<I>) -> Variances<I> {
+         self.db.unification_database().fn_def_variance(fn_def_id)
+     }
+@@ -35,7 +35,7 @@ impl<I: Interner, DB: RustIrDatabase<I>> UnificationDatabase<I> for StubWrapper<
+     }
+ }
+ 
+-impl<I: Interner, DB: RustIrDatabase<I>> RustIrDatabase<I> for StubWrapper<'_, DB> {
++impl<I: Interner, DB: RustIrDatabase<I> + ?Sized> RustIrDatabase<I> for StubWrapper<'_, DB> {
+     fn custom_clauses(&self) -> Vec<chalk_ir::ProgramClause<I>> {
+         self.db.custom_clauses()
+     }
+-- 
+2.19.0.windows.1
+
