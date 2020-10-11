@@ -186,6 +186,129 @@ pub trait RustIrDatabase<I: Interner>: Debug {
     }
 }
 
+impl<'a, I: Interner, T: ?Sized + RustIrDatabase<I>> RustIrDatabase<I> for &'a T {
+    fn custom_clauses(&self) -> Vec<ProgramClause<I>> {
+        (**self).custom_clauses()
+    }
+
+    fn associated_ty_data(&self, ty: AssocTypeId<I>) -> Arc<AssociatedTyDatum<I>> {
+        (**self).associated_ty_data(ty)
+    }
+
+    fn trait_datum(&self, trait_id: TraitId<I>) -> Arc<TraitDatum<I>> {
+        (**self).trait_datum(trait_id)
+    }
+
+    fn adt_datum(&self, adt_id: AdtId<I>) -> Arc<AdtDatum<I>> {
+        (**self).adt_datum(adt_id)
+    }
+
+    fn adt_repr(&self, id: AdtId<I>) -> AdtRepr {
+        (**self).adt_repr(id)
+    }
+
+    fn fn_def_datum(&self, fn_def_id: FnDefId<I>) -> Arc<FnDefDatum<I>> {
+        (**self).fn_def_datum(fn_def_id)
+    }
+
+    fn impl_datum(&self, impl_id: ImplId<I>) -> Arc<ImplDatum<I>> {
+        (**self).impl_datum(impl_id)
+    }
+
+    fn associated_ty_value(&self, id: AssociatedTyValueId<I>) -> Arc<AssociatedTyValue<I>> {
+        (**self).associated_ty_value(id)
+    }
+
+    fn opaque_ty_data(&self, id: OpaqueTyId<I>) -> Arc<OpaqueTyDatum<I>> {
+        (**self).opaque_ty_data(id)
+    }
+
+    fn hidden_opaque_type(&self, id: OpaqueTyId<I>) -> Ty<I> {
+        (**self).hidden_opaque_type(id)
+    }
+
+    fn impls_for_trait(
+        &self,
+        trait_id: TraitId<I>,
+        parameters: &[GenericArg<I>],
+        binders: &CanonicalVarKinds<I>,
+    ) -> Vec<ImplId<I>> {
+        (**self).impls_for_trait(trait_id, parameters, binders)
+    }
+
+    fn local_impls_to_coherence_check(&self, trait_id: TraitId<I>) -> Vec<ImplId<I>> {
+        (**self).local_impls_to_coherence_check(trait_id)
+    }
+
+    fn impl_provided_for(&self, auto_trait_id: TraitId<I>, adt_id: AdtId<I>) -> bool {
+        (**self).impl_provided_for(auto_trait_id, adt_id)
+    }
+
+    fn well_known_trait_id(&self, well_known_trait: WellKnownTrait) -> Option<TraitId<I>> {
+        (**self).well_known_trait_id(well_known_trait)
+    }
+
+    fn program_clauses_for_env(&self, environment: &Environment<I>) -> ProgramClauses<I> {
+        (**self).program_clauses_for_env(environment)
+    }
+
+    fn interner(&self) -> &I {
+        (**self).interner()
+    }
+
+    fn is_object_safe(&self, trait_id: TraitId<I>) -> bool {
+        (**self).is_object_safe(trait_id)
+    }
+
+    fn closure_kind(&self, closure_id: ClosureId<I>, substs: &Substitution<I>) -> ClosureKind {
+        (**self).closure_kind(closure_id, substs)
+    }
+
+    fn closure_inputs_and_output(
+        &self,
+        closure_id: ClosureId<I>,
+        substs: &Substitution<I>,
+    ) -> Binders<FnDefInputsAndOutputDatum<I>> {
+        (**self).closure_inputs_and_output(closure_id, substs)
+    }
+
+    fn closure_upvars(&self, closure_id: ClosureId<I>, substs: &Substitution<I>) -> Binders<Ty<I>> {
+        (**self).closure_upvars(closure_id, substs)
+    }
+
+    fn closure_fn_substitution(
+        &self,
+        closure_id: ClosureId<I>,
+        substs: &Substitution<I>,
+    ) -> Substitution<I> {
+        (**self).closure_fn_substitution(closure_id, substs)
+    }
+
+    fn unification_database(&self) -> &dyn UnificationDatabase<I> {
+        (**self).unification_database()
+    }
+
+    fn trait_name(&self, trait_id: TraitId<I>) -> String {
+        (**self).trait_name(trait_id)
+    }
+
+    fn adt_name(&self, adt_id: AdtId<I>) -> String {
+        (**self).adt_name(adt_id)
+    }
+
+    fn assoc_type_name(&self, assoc_ty_id: AssocTypeId<I>) -> String {
+        (**self).assoc_type_name(assoc_ty_id)
+    }
+
+    fn opaque_type_name(&self, opaque_ty_id: OpaqueTyId<I>) -> String {
+        (**self).opaque_type_name(opaque_ty_id)
+    }
+
+    fn fn_def_name(&self, fn_def_id: FnDefId<I>) -> String {
+        (**self).fn_def_name(fn_def_id)
+    }
+}
+
 pub use clauses::program_clauses_for_env;
 
 pub use solve::Guidance;
